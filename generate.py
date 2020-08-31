@@ -1,10 +1,9 @@
 import logging
-from rdflib import Literal, Namespace
-from compile import define_classes, bind_prefixes, G
-from ns import BRICK, RDF, OWL, RDFS, SKOS
-from ns import BRICK_VERSION
+from rdflib import Literal
+from compile import define_classes, define_values, G
+from ns import BRICK, RDF, OWL, RDFS, SKOS, A, EXT
 
-EXT = Namespace(f"https://brickschema.org/schema/{BRICK_VERSION}/Brick/extension/occupancy#")
+# EXT is the namespace of our extension
 G.bind("occ", EXT)
 
 logging.basicConfig(
@@ -40,8 +39,76 @@ equipment_extensions = {
     }
 }
 
+
 define_classes(extension_classes, BRICK.Class, ns=EXT)
 define_classes(equipment_extensions, BRICK.Equipment, ns=EXT)
+
+# enumerations
+enums = {
+    "DeviceProperty": {
+        SKOS.definition: Literal("Properties of devices that relate to occupants and their interactions with devices"),
+        "subclasses": {
+            "DegreeOfControl": {
+                SKOS.definition: Literal("How a device may be controlled by an occupant"),
+            },
+            "OccupantAccessibilityLevel": {
+                SKOS.definition: Literal("How accessible a device is to be controlled by occupants"),
+            },
+            "ModeOfControl": {
+                SKOS.definition: Literal("The policy under which the device is controlled"),
+            },
+        },
+    },
+}
+define_classes(enums, BRICK.Class, ns=EXT)
+
+
+enum_values = {
+    "OnOffControl": {
+        A: EXT.DegreeOfControl,
+        SKOS.definition: Literal("Device has on/off binary control"),
+    },
+    "ContinuousControl": {
+        A: EXT.DegreeOfControl,
+        SKOS.definition: Literal("Device supports a continuous range of control inputs (e.g. 0-100%)"),
+    },
+    "StagedControl": {
+        A: EXT.DegreeOfControl,
+        SKOS.definition: Literal("Device has a fixed number (> 2) of inputs"),
+    },
+    "NoControl": {
+        A: EXT.DegreeOfControl,
+        SKOS.definition: Literal("Device is fixed or has no control input capabilities"),
+    },
+
+    "NotAccessible": {
+        A: EXT.OccupantAccessibilityLevel,
+        SKOS.definition: Literal("Device is inaccessible to occupants"),
+    },
+    "Adjustable": {
+        A: EXT.OccupantAccessibilityLevel,
+        SKOS.definition: Literal("Device is accessible to occupants"),
+    },
+    "Shared": {
+        A: EXT.OccupantAccessibilityLevel,
+        SKOS.definition: Literal("Device is accessible by many occupants"),
+    },
+
+    "ManualMode": {
+        A: EXT.ModeOfControl,
+        SKOS.definition: Literal("Device is controlled manually"),
+    },
+    "AutomaticMode": {
+        A: EXT.ModeOfControl,
+        SKOS.definition: Literal("Device is controlled automatically, according to some schedule"),
+    },
+    "DynamicMode": {
+        A: EXT.ModeOfControl,
+        SKOS.definition: Literal("Device is controlled by a dynamic process, e.g. via a grid signal"),
+    },
+}
+#TODO: instantiate
+define_values(enum_values, ns=EXT)
 
 
 logging.info("Defining properties")

@@ -164,7 +164,7 @@ def define_classes(definitions, parent, pun_classes=False, ns=BRICK):
                 G.add((classname, propname, propval))
 
 
-def define_properties(definitions, superprop=None):
+def define_properties(definitions, superprop=None, ns=BRICK):
     """
     Define BRICK properties
     """
@@ -172,20 +172,20 @@ def define_properties(definitions, superprop=None):
         return
 
     for prop, propdefn in definitions.items():
-        G.add((BRICK[prop], A, OWL.ObjectProperty))
+        G.add((ns[prop], A, OWL.ObjectProperty))
         if superprop is not None:
-            G.add((BRICK[prop], RDFS.subPropertyOf, superprop))
+            G.add((ns[prop], RDFS.subPropertyOf, superprop))
 
         # define property types
         prop_types = propdefn.get(A, [])
         assert isinstance(prop_types, list)
         for prop_type in prop_types:
-            G.add((BRICK[prop], A, prop_type))
+            G.add((ns[prop], A, prop_type))
 
         # define any subproperties
         subproperties_def = propdefn.get("subproperties", {})
         assert isinstance(subproperties_def, dict)
-        define_properties(subproperties_def, BRICK[prop])
+        define_properties(subproperties_def, ns[prop], ns=ns)
 
         # define other properties of the Brick property
         for propname, propval in propdefn.items():
@@ -198,7 +198,19 @@ def define_properties(definitions, superprop=None):
 
             for propname in other_properties:
                 propval = propdefn[propname]
-                G.add((BRICK[prop], propname, propval))
+                G.add((ns[prop], propname, propval))
+
+
+def define_values(definitions, ns=BRICK):
+    for ent, entdefn in definitions.items():
+        if A not in entdefn:
+            raise Exception("Need to provide a class to instantiate!")
+        for propname in entdefn.keys():
+            vals = entdefn[propname]
+            if not isinstance(vals, list):
+                vals = [vals]
+            for v in vals:
+                G.add((ns[ent], propname, v))
 
 
 def add_definitions():

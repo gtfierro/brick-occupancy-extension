@@ -4,10 +4,40 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
+occ:Adjustable a occ:OccupantAccessibilityLevel ;
+    skos:definition "Device is accessible to occupants" .
+
+occ:AutomaticMode a occ:ModeOfControl ;
+    skos:definition "Device is controlled automatically, according to some schedule" .
+
+occ:ContinuousControl a occ:DegreeOfControl ;
+    skos:definition "Device supports a continuous range of control inputs (e.g. 0-100%)" .
+
+occ:DynamicMode a occ:ModeOfControl ;
+    skos:definition "Device is controlled by a dynamic process, e.g. via a grid signal" .
+
+occ:ManualMode a occ:ModeOfControl ;
+    skos:definition "Device is controlled manually" .
+
+occ:NoControl a occ:DegreeOfControl ;
+    skos:definition "Device is fixed or has no control input capabilities" .
+
+occ:NotAccessible a occ:OccupantAccessibilityLevel ;
+    skos:definition "Device is inaccessible to occupants" .
+
+occ:OnOffControl a occ:DegreeOfControl ;
+    skos:definition "Device has on/off binary control" .
+
 occ:Regular_Occupant a owl:Class ;
     rdfs:label "Regular Occupant" ;
     rdfs:subClassOf occ:Occupant ;
     skos:definition "A regular building occupant; e.g. an employee" .
+
+occ:Shared a occ:OccupantAccessibilityLevel ;
+    skos:definition "Device is accessible by many occupants" .
+
+occ:StagedControl a occ:DegreeOfControl ;
+    skos:definition "Device has a fixed number (> 2) of inputs" .
 
 occ:Temporary_Occupant a owl:Class ;
     rdfs:label "Temporary Occupant" ;
@@ -28,3 +58,23 @@ occ:Occupant a owl:Class ;
     rdfs:label "Occupant" ;
     rdfs:subClassOf brick:Class ;
     skos:definition "A building occupant" .
+
+occ:DeviceProperty a owl:Class ;
+    rdfs:label "DeviceProperty" ;
+    rdfs:subClassOf brick:Class ;
+    skos:definition "Properties of devices that relate to occupants and their interactions with devices" .
+
+occ:ModeOfControl a owl:Class ;
+    rdfs:label "ModeOfControl" ;
+    rdfs:subClassOf occ:DeviceProperty ;
+    skos:definition "The policy under which the device is controlled" .
+
+occ:OccupantAccessibilityLevel a owl:Class ;
+    rdfs:label "OccupantAccessibilityLevel" ;
+    rdfs:subClassOf occ:DeviceProperty ;
+    skos:definition "How accessible a device is to be controlled by occupants" .
+
+occ:DegreeOfControl a owl:Class ;
+    rdfs:label "DegreeOfControl" ;
+    rdfs:subClassOf occ:DeviceProperty ;
+    skos:definition "How a device may be controlled by an occupant" .

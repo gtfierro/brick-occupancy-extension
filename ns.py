@@ -1,6 +1,7 @@
 from rdflib import Namespace
 BRICK_VERSION = "1.1"
 
+EXT = Namespace(f"https://brickschema.org/schema/{BRICK_VERSION}/Brick/extension/occupancy#")
 BRICK = Namespace(f"https://brickschema.org/schema/{BRICK_VERSION}/Brick#")
 TAG = Namespace(f"https://brickschema.org/schema/{BRICK_VERSION}/BrickTag#")
 BSH = Namespace(f"https://brickschema.org/schema/{BRICK_VERSION}/BrickShape#")
