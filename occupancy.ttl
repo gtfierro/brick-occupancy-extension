@@ -1,0 +1,30 @@
+@prefix brick: <https://brickschema.org/schema/1.1/Brick#> .
+@prefix occ: <https://brickschema.org/schema/1.1/Brick/extension/occupancy#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+occ:Regular_Occupant a owl:Class ;
+    rdfs:label "Regular Occupant" ;
+    rdfs:subClassOf occ:Occupant ;
+    skos:definition "A regular building occupant; e.g. an employee" .
+
+occ:Temporary_Occupant a owl:Class ;
+    rdfs:label "Temporary Occupant" ;
+    rdfs:subClassOf occ:Occupant ;
+    skos:definition "A temporary building occupant; e.g. a visitor" .
+
+occ:Window a owl:Class ;
+    rdfs:label "Window" ;
+    rdfs:subClassOf occ:Envelope_Equipment ;
+    skos:definition "An opening in the wall or roof of a building or vehicle that is fitted with glass or other transparent material in a frame to admit light or air and allow people to see out." .
+
+occ:Envelope_Equipment a owl:Class ;
+    rdfs:label "Envelope Equipment" ;
+    rdfs:subClassOf brick:Equipment ;
+    skos:definition "Equipment used in the building envelope" .
+
+occ:Occupant a owl:Class ;
+    rdfs:label "Occupant" ;
+    rdfs:subClassOf brick:Class ;
+    skos:definition "A building occupant" .
