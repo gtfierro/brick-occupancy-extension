@@ -1,5 +1,5 @@
 import logging
-from rdflib import Literal
+from rdflib import Literal, XSD
 from compile import define_classes, define_values, G
 from ns import BRICK, RDF, OWL, RDFS, SKOS, A, EXT
 
@@ -17,6 +17,53 @@ logging.info("Beginning extension compilation")
 extension_classes = {
     "Occupant": {
         SKOS.definition: Literal("A building occupant"),
+        "properties": {
+            "Permenance": {
+                "exclusive": True,
+                "values": {
+                    "Temporary": {
+                        SKOS.definition: Literal("A temporary building occupant; e.g. a visitor"),
+                    },
+                    "Regular": {
+                        SKOS.definition: Literal("A regular building occupant; e.g. an employee"),
+                    }
+                }
+            },
+            "Gender": {
+                "exclusive": False,
+                "values": [
+                    "Male", "Female", "Non-binary", "Decline to state"
+                ],
+            },
+            # TODO: make AgeRange more general (attach to a group of occupants too), and
+            # be able to refer to it so we don't repeat the definition
+            "AgeRange": {
+                SKOS.definition: Literal("Age range of individuals or a certain group of occupants"),
+                "exclusive": True,
+                "values": {
+                    "Children": {
+                        SKOS.definition: Literal("Occupants are less than 11 years old (inclusive)"),
+                    },
+                    "Teens": {
+                        SKOS.definition: Literal("Occupants are between 12 to 17 years old (inclusive)"),
+                    },
+                    "Adults": {
+                        SKOS.definition: Literal("Occupants are between 18 to 64 years old (inclusive)"),
+                    },
+                    "Elderly": {
+                        SKOS.definition: Literal("Occupants are more than 65 years old (inclusive)"),
+                    }
+                }
+            },
+            "Age": {
+                SKOS.definition: Literal("Age of an individual"),
+                "datatype": XSD.Integer,
+            },
+            # TODO: Race could be better modeled as Ancestry? Still need an enumeration definition (http://sitn.hms.harvard.edu/flash/2017/science-genetics-reshaping-race-debate-21st-century/)
+            # TODO: thermal preference
+            # TODO: energy use style
+
+        },
         "subclasses": {
             "Temporary_Occupant": {
                 SKOS.definition: Literal("A temporary building occupant; e.g. a visitor"),

@@ -1,11 +1,18 @@
 @prefix brick: <https://brickschema.org/schema/1.1/Brick#> .
 @prefix occ: <https://brickschema.org/schema/1.1/Brick/extension/occupancy#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 occ:Adjustable a occ:OccupantAccessibilityLevel ;
     skos:definition "Device is accessible to occupants" .
+
+occ:Age a brick:Quantity .
+
+occ:AgeRange a brick:Quantity ;
+    owl:oneOf ( occ:AgeRange_Children occ:AgeRange_Teens occ:AgeRange_Adults occ:AgeRange_Elderly occ:AgeRange_Children occ:AgeRange_Teens occ:AgeRange_Adults occ:AgeRange_Elderly ) .
 
 occ:AutomaticMode a occ:ModeOfControl ;
     skos:definition "Device is controlled automatically, according to some schedule" .
@@ -15,6 +22,9 @@ occ:ContinuousControl a occ:DegreeOfControl ;
 
 occ:DynamicMode a occ:ModeOfControl ;
     skos:definition "Device is controlled by a dynamic process, e.g. via a grid signal" .
+
+occ:Gender a brick:Quantity ;
+    owl:oneOf ( occ:Gender_Male occ:Gender_Female occ:Gender_Non-binary occ:Gender_Decline_to_state ) .
 
 occ:ManualMode a occ:ModeOfControl ;
     skos:definition "Device is controlled manually" .
@@ -27,6 +37,9 @@ occ:NotAccessible a occ:OccupantAccessibilityLevel ;
 
 occ:OnOffControl a occ:DegreeOfControl ;
     skos:definition "Device has on/off binary control" .
+
+occ:Permenance a brick:Quantity ;
+    owl:oneOf ( occ:Permenance_Temporary occ:Permenance_Regular ) .
 
 occ:Regular_Occupant a owl:Class ;
     rdfs:label "Regular Occupant" ;
@@ -53,6 +66,32 @@ occ:Envelope_Equipment a owl:Class ;
     rdfs:label "Envelope Equipment" ;
     rdfs:subClassOf brick:Equipment ;
     skos:definition "Equipment used in the building envelope" .
+
+occ:Gender_Decline_to_state a qudt:Quantity .
+
+occ:Gender_Female a qudt:Quantity .
+
+occ:Gender_Male a qudt:Quantity .
+
+occ:Gender_Non-binary a qudt:Quantity .
+
+occ:Permenance_Regular a qudt:Quantity ;
+    skos:definition "A regular building occupant; e.g. an employee" .
+
+occ:Permenance_Temporary a qudt:Quantity ;
+    skos:definition "A temporary building occupant; e.g. a visitor" .
+
+occ:AgeRange_Adults a qudt:Quantity ;
+    skos:definition "Occupants are between 18 to 64 years old (inclusive)" .
+
+occ:AgeRange_Children a qudt:Quantity ;
+    skos:definition "Occupants are less than 11 years old (inclusive)" .
+
+occ:AgeRange_Elderly a qudt:Quantity ;
+    skos:definition "Occupants are more than 65 years old (inclusive)" .
+
+occ:AgeRange_Teens a qudt:Quantity ;
+    skos:definition "Occupants are between 12 to 17 years old (inclusive)" .
 
 occ:Occupant a owl:Class ;
     rdfs:label "Occupant" ;

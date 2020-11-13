@@ -1,11 +1,12 @@
 import csv
 import logging
 from collections import defaultdict
-from rdflib import Graph, Literal, BNode, URIRef
+from rdflib import Graph, Literal, BNode, URIRef, Namespace
 from rdflib.collection import Collection
 from ns import BRICK, RDF, OWL, RDFS, SKOS
 from ns import bind_prefixes
 
+QUDT = Namespace("http://qudt.org/schema/qudt/")
 
 logging.basicConfig(
     format="%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
@@ -137,6 +138,12 @@ def define_classes(definitions, parent, pun_classes=False, ns=BRICK):
         assert isinstance(substancedef, list)
         add_restriction(classname, substancedef)
 
+        # define properties
+        propertiesdef = defn.get("properties", {})
+        assert isinstance(propertiesdef, dict)
+        # TODO: handle properties
+        define_entity_properties(propertiesdef, classname, ns=ns)
+
         # define class structure
         # this is a nested dictionary
         subclassdef = defn.get("subclasses", {})
@@ -151,7 +158,7 @@ def define_classes(definitions, parent, pun_classes=False, ns=BRICK):
 
         # all other key-value pairs in the definition are
         # property-object pairs
-        expected_properties = ["parents", "tags", "substances", "subclasses"]
+        expected_properties = ["parents", "tags", "substances", "subclasses", "properties"]
         other_properties = [
             prop for prop in defn.keys() if prop not in expected_properties
         ]
@@ -162,6 +169,38 @@ def define_classes(definitions, parent, pun_classes=False, ns=BRICK):
                     G.add((classname, propname, pv))
             else:
                 G.add((classname, propname, propval))
+
+
+def define_entity_properties(definitions, target_class, ns=BRICK):
+    for propname, defn in definitions.items():
+        # define property
+        G.add((ns[propname], A, BRICK.Quantity))
+
+        # attaches the value definitions as enumerated values of 'propname'.
+        # If given a list of strings, it will create a new QUDT Quantity for each
+        # with the given name (prefixed by propname)
+        # If given a list of dictionaries, the key is the propname and the value is
+        # a dictionary of property names and values (e.g. SKOS definition)
+        if defn.get("values"):
+            values = defn.get("values", {})
+            list_name = BNode()
+            members = []
+            if isinstance(values, list):
+                values = {v: {} for v in values}
+            assert isinstance(values, dict), f"values must be dict: {values}"
+            for val, valdefn in values.items():
+                valname = ns[f"{propname}_{val.replace(' ', '_')}"]
+                G.add((valname, A, QUDT.Quantity))
+                for k, v in valdefn.items():
+                    if isinstance(v, list):
+                        for pv in v:
+                            G.add((valname, k, pv))
+                    else:
+                        G.add((valname, k, v))
+                members.append(valname)
+            # TODO: handle exclusive properties
+            G.add((ns[propname], OWL.oneOf, list_name))
+        Collection(G, list_name, members)
 
 
 def define_properties(definitions, superprop=None, ns=BRICK):
