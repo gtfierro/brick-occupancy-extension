@@ -7,7 +7,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 occ:Adjustable a occ:OccupantAccessibilityLevel ;
-    skos:definition "Device is accessible to occupants" .
+    skos:definition "Device is accessible to occupants for adjustment" .
 
 occ:Age a brick:Quantity .
 
@@ -17,14 +17,42 @@ occ:AgeRange a brick:Quantity ;
 occ:AutomaticMode a occ:ModeOfControl ;
     skos:definition "Device is controlled automatically, according to some schedule" .
 
+occ:Ceiling_Fan a owl:Class ;
+    rdfs:label "Ceiling Fan" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A mechanical fan mounted on the ceiling of a room or space, usually electrically powered, that uses hub-mounted rotating blades to circulate air" .
+
 occ:ContinuousControl a occ:DegreeOfControl ;
     skos:definition "Device supports a continuous range of control inputs (e.g. 0-100%)" .
+
+occ:Desktop_Light a owl:Class ;
+    rdfs:label "Desktop Light" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A lighting equipment on the desktop to provide illuminance" .
+
+occ:Door a owl:Class ;
+    rdfs:label "Door" ;
+    rdfs:subClassOf occ:Envelope_Equipment ;
+    skos:definition "A hinged, sliding, or revolving barrier at the entrance of a building or a zone that allows occupants to go in and out" .
+
+occ:Door_Status a owl:Class ;
+    rdfs:label "Door Status" ;
+    rdfs:subClassOf occ:Status ;
+    skos:definition "Status of the doors (open, closed)" .
 
 occ:DynamicMode a occ:ModeOfControl ;
     skos:definition "Device is controlled by a dynamic process, e.g. via a grid signal" .
 
+occ:Energy_Use_Style a brick:Quantity ;
+    owl:oneOf ( occ:Energy_Use_Style_Austerity occ:Energy_Use_Style_Wasteful occ:Energy_Use_Style_Norm ) .
+
 occ:Gender a brick:Quantity ;
-    owl:oneOf ( occ:Gender_Male occ:Gender_Female occ:Gender_Non-binary occ:Gender_Decline_to_state ) .
+    owl:oneOf ( occ:Gender_Male occ:Gender_Female occ:Gender_Nonbinary occ:Gender_Decline_to_state ) .
+
+occ:Lighting_Status a owl:Class ;
+    rdfs:label "Lighting Status" ;
+    rdfs:subClassOf occ:Status ;
+    skos:definition "Status of the lightings (on, off)" .
 
 occ:ManualMode a occ:ModeOfControl ;
     skos:definition "Device is controlled manually" .
@@ -39,15 +67,33 @@ occ:OnOffControl a occ:DegreeOfControl ;
     skos:definition "Device has on/off binary control" .
 
 occ:Permenance a brick:Quantity ;
-    owl:oneOf ( occ:Permenance_Temporary occ:Permenance_Regular ) .
+    owl:oneOf ( occ:Permenance_Individual occ:Permenance_Group ) .
+
+occ:Portable_Fan a owl:Class ;
+    rdfs:label "Portable Fan" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A cord-connected appliance that is easily moved by hand from place to place to provide flowing air" .
+
+occ:Portable_Heater a owl:Class ;
+    rdfs:label "Portable Heater" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A cord-connected appliance that is easily moved by hand from place to place to provide heating" .
+
+occ:Race a brick:Quantity ;
+    owl:oneOf ( occ:Race_African_American occ:Race_Asian occ:Race_American_Indian occ:Race_Native_Hawaiian occ:Race_White occ:Race_Mix ) .
 
 occ:Regular_Occupant a owl:Class ;
     rdfs:label "Regular Occupant" ;
     rdfs:subClassOf occ:Occupant ;
     skos:definition "A regular building occupant; e.g. an employee" .
 
+occ:Shading_Sensor a owl:Class ;
+    rdfs:label "Shading Sensor" ;
+    rdfs:subClassOf occ:Sensor ;
+    skos:definition "A sensor used to monitor the status of the shading (on, off)" .
+
 occ:Shared a occ:OccupantAccessibilityLevel ;
-    skos:definition "Device is accessible by many occupants" .
+    skos:definition "Device is accessible by multiple occupants" .
 
 occ:StagedControl a occ:DegreeOfControl ;
     skos:definition "Device has a fixed number (> 2) of inputs" .
@@ -57,29 +103,85 @@ occ:Temporary_Occupant a owl:Class ;
     rdfs:subClassOf occ:Occupant ;
     skos:definition "A temporary building occupant; e.g. a visitor" .
 
+occ:Thermal_Preference a brick:Quantity ;
+    owl:oneOf ( occ:Thermal_Preference_Warmer occ:Thermal_Preference_Cooler occ:Thermal_Preference_Neutral occ:Thermal_Preference_No_Preference ) .
+
+occ:Wifi_AP a owl:Class ;
+    rdfs:label "Wifi AP" ;
+    rdfs:subClassOf occ:Sensor ;
+    skos:definition "Number of wifi access point" .
+
 occ:Window a owl:Class ;
     rdfs:label "Window" ;
     rdfs:subClassOf occ:Envelope_Equipment ;
-    skos:definition "An opening in the wall or roof of a building or vehicle that is fitted with glass or other transparent material in a frame to admit light or air and allow people to see out." .
+    skos:definition "An opening in the wall of a building to admit light or air and allows occupants to see out" .
 
-occ:Envelope_Equipment a owl:Class ;
-    rdfs:label "Envelope Equipment" ;
-    rdfs:subClassOf brick:Equipment ;
-    skos:definition "Equipment used in the building envelope" .
+occ:Window_Sensor a owl:Class ;
+    rdfs:label "Window Sensor" ;
+    rdfs:subClassOf occ:Sensor ;
+    skos:definition "A sensor used to monitor the status of the window (open, closed, open angle)" .
 
-occ:Gender_Decline_to_state a qudt:Quantity .
+occ:Window_Status a owl:Class ;
+    rdfs:label "Window Status" ;
+    rdfs:subClassOf occ:Status ;
+    skos:definition "Status of the windows (open, closed)" .
 
-occ:Gender_Female a qudt:Quantity .
+occ:Energy_Use_Style_Austerity a qudt:Quantity ;
+    skos:definition "Occupants have an austerity energy use behavior" .
 
-occ:Gender_Male a qudt:Quantity .
+occ:Energy_Use_Style_Norm a qudt:Quantity ;
+    skos:definition "Occupants have an average energy use behavior" .
 
-occ:Gender_Non-binary a qudt:Quantity .
+occ:Energy_Use_Style_Wasteful a qudt:Quantity ;
+    skos:definition "Occupants have a wasteful energy use behavior" .
 
-occ:Permenance_Regular a qudt:Quantity ;
-    skos:definition "A regular building occupant; e.g. an employee" .
+occ:Gender_Decline_to_state a qudt:Quantity ;
+    skos:definition "Occupants declined to state" .
 
-occ:Permenance_Temporary a qudt:Quantity ;
-    skos:definition "A temporary building occupant; e.g. a visitor" .
+occ:Gender_Female a qudt:Quantity ;
+    skos:definition "Occupants are female" .
+
+occ:Gender_Male a qudt:Quantity ;
+    skos:definition "Occupants are male" .
+
+occ:Gender_Nonbinary a qudt:Quantity ;
+    skos:definition "Occupants are non-binary" .
+
+occ:Permenance_Group a qudt:Quantity ;
+    skos:definition "A description of a certain group of occupant" .
+
+occ:Permenance_Individual a qudt:Quantity ;
+    skos:definition "A description of one individual occupant" .
+
+occ:Race_African_American a qudt:Quantity ;
+    skos:definition "Occupants are African American" .
+
+occ:Race_American_Indian a qudt:Quantity ;
+    skos:definition "Occupants are American Indian" .
+
+occ:Race_Asian a qudt:Quantity ;
+    skos:definition "Occupants are Asian" .
+
+occ:Race_Mix a qudt:Quantity ;
+    skos:definition "The group of occupants has a mix of races" .
+
+occ:Race_Native_Hawaiian a qudt:Quantity ;
+    skos:definition "Occupants are Native Hawaiian" .
+
+occ:Race_White a qudt:Quantity ;
+    skos:definition "Occupants are white people" .
+
+occ:Thermal_Preference_Cooler a qudt:Quantity ;
+    skos:definition "Occupants prefer cooler indoor environment" .
+
+occ:Thermal_Preference_Neutral a qudt:Quantity ;
+    skos:definition "Occupants prefer neutral indoor environment" .
+
+occ:Thermal_Preference_No_Preference a qudt:Quantity ;
+    skos:definition "Occupants do not have special thermal preference" .
+
+occ:Thermal_Preference_Warmer a qudt:Quantity ;
+    skos:definition "Occupants prefer warmer indoor environment" .
 
 occ:AgeRange_Adults a qudt:Quantity ;
     skos:definition "Occupants are between 18 to 64 years old (inclusive)" .
@@ -93,10 +195,15 @@ occ:AgeRange_Elderly a qudt:Quantity ;
 occ:AgeRange_Teens a qudt:Quantity ;
     skos:definition "Occupants are between 12 to 17 years old (inclusive)" .
 
+occ:Envelope_Equipment a owl:Class ;
+    rdfs:label "Envelope Equipment" ;
+    rdfs:subClassOf brick:Equipment ;
+    skos:definition "Equipment used in the building envelope" .
+
 occ:Occupant a owl:Class ;
     rdfs:label "Occupant" ;
     rdfs:subClassOf brick:Class ;
-    skos:definition "A building occupant" .
+    skos:definition "Building occupant, which can be an indiviudal occupant or a group of occupants sharing some common attributes" .
 
 occ:DeviceProperty a owl:Class ;
     rdfs:label "DeviceProperty" ;
@@ -113,7 +220,22 @@ occ:OccupantAccessibilityLevel a owl:Class ;
     rdfs:subClassOf occ:DeviceProperty ;
     skos:definition "How accessible a device is to be controlled by occupants" .
 
+occ:Sensor a owl:Class ;
+    rdfs:label "Sensor" ;
+    rdfs:subClassOf brick:Status ;
+    skos:definition "A Sensor is an input point that represents the value of a device or instrument designed to detect and measure a variable (ASHRAE Dictionary)" .
+
+occ:Status a owl:Class ;
+    rdfs:label "Status" ;
+    rdfs:subClassOf brick:Status ;
+    skos:definition "Status of the equipment" .
+
 occ:DegreeOfControl a owl:Class ;
     rdfs:label "DegreeOfControl" ;
     rdfs:subClassOf occ:DeviceProperty ;
     skos:definition "How a device may be controlled by an occupant" .
+
+occ:Personal_Device a owl:Class ;
+    rdfs:label "Personal Device" ;
+    rdfs:subClassOf brick:Equipment ;
+    skos:definition "Dedicated devices used to maintain thermal comfort for occupants" .
