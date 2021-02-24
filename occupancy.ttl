@@ -1,5 +1,5 @@
-@prefix brick: <https://brickschema.org/schema/1.1/Brick#> .
-@prefix occ: <https://brickschema.org/schema/1.1/Brick/extension/occupancy#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

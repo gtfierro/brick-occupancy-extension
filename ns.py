@@ -1,10 +1,9 @@
 from rdflib import Namespace
-BRICK_VERSION = "1.1"
 
-EXT = Namespace(f"https://brickschema.org/schema/{BRICK_VERSION}/Brick/extension/occupancy#")
-BRICK = Namespace(f"https://brickschema.org/schema/{BRICK_VERSION}/Brick#")
-TAG = Namespace(f"https://brickschema.org/schema/{BRICK_VERSION}/BrickTag#")
-BSH = Namespace(f"https://brickschema.org/schema/{BRICK_VERSION}/BrickShape#")
+EXT = Namespace("https://brickschema.org/schema/Brick/extension/occupancy#")
+BRICK = Namespace("https://brickschema.org/schema/Brick#")
+TAG = Namespace("https://brickschema.org/schema/BrickTag#")
+BSH = Namespace("https://brickschema.org/schema/BrickShape#")
 SH = Namespace("http://www.w3.org/ns/shacl#")
 OWL = Namespace("http://www.w3.org/2002/07/owl#")
 RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
