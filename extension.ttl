@@ -25,7 +25,7 @@ occ: a owl:Ontology ;
 
 occ:Ceiling_Fan a owl:Class ;
     rdfs:label "Ceiling Fan" ;
-    rdfs:subClassOf occ:Personal_Device ;
+    rdfs:subClassOf brick:Fan ;
     skos:definition "A mechanical fan mounted on the ceiling of a room or space, usually electrically powered, that uses hub-mounted rotating blades to circulate air" .
 
 occ:Personal_Device a owl:Class ;
@@ -68,7 +68,7 @@ occ:Window a owl:Class ;
 occ:Occupant a owl:Class ;
     rdfs:label "Occupant" ;
     rdfs:subClassOf  brick:Entity, foaf:Agent ;
-    skos:definition "Building occupant, which can be an indiviudal occupant or a group of occupants sharing some common attributes" .
+    skos:definition "Building occupant, which can be an individual occupant or a group of occupants sharing some common attributes" .
 
 occ:Group   a   owl:Class, sh:NodeShape ;
     sh:property [
@@ -89,6 +89,7 @@ occ:Individual   a   owl:Class, sh:NodeShape ;
 .
 
 occ:groupSize    a   owl:DatatypeProperty ;
+    rdfs:domain occ:Group ;
     rdfs:range  xsd:positiveInteger ;
     skos:definition "The number of individuals in a group" ;
 .
