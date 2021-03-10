@@ -1,0 +1,305 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sdo: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+occ: a owl:Ontology ;
+    rdfs:label "Brick Occupancy Ontology" ;
+    dcterms:creator ( [ a sdo:Person ;
+                sdo:email "gtfierro@cs.berkeley.edu" ;
+                sdo:name "Gabe Fierro" ] ) ;
+    dcterms:license <https://github.com/BrickSchema/brick/blob/master/LICENSE> ;
+    rdfs:seeAlso <https://brickschema.org> .
+
+
+############################# Equipment
+
+occ:Ceiling_Fan a owl:Class ;
+    rdfs:label "Ceiling Fan" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A mechanical fan mounted on the ceiling of a room or space, usually electrically powered, that uses hub-mounted rotating blades to circulate air" .
+
+occ:Personal_Device a owl:Class ;
+    rdfs:label "Personal Device" ;
+    rdfs:subClassOf brick:Equipment ;
+    skos:definition "Dedicated devices used to maintain thermal comfort for occupants" .
+
+occ:Portable_Fan a owl:Class ;
+    rdfs:label "Portable Fan" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A cord-connected appliance that is easily moved by hand from place to place to provide flowing air" .
+
+occ:Portable_Heater a owl:Class ;
+    rdfs:label "Portable Heater" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A cord-connected appliance that is easily moved by hand from place to place to provide heating" .
+
+occ:Desktop_Light a owl:Class ;
+    rdfs:label "Desktop Light" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A lighting equipment on the desktop to provide illuminance" .
+
+occ:Envelope_Equipment a owl:Class ;
+    rdfs:label "Envelope Equipment" ;
+    rdfs:subClassOf brick:Equipment ;
+    skos:definition "Equipment used in the building envelope" .
+
+occ:Door a owl:Class ;
+    rdfs:label "Door" ;
+    rdfs:subClassOf occ:Envelope_Equipment ;
+    skos:definition "A hinged, sliding, or revolving barrier at the entrance of a building or a zone that allows occupants to go in and out" .
+
+occ:Window a owl:Class ;
+    rdfs:label "Window" ;
+    rdfs:subClassOf occ:Envelope_Equipment ;
+    skos:definition "An opening in the wall of a building to admit light or air and allows occupants to see out" .
+
+########## Occupants
+
+occ:Occupant a owl:Class ;
+    rdfs:label "Occupant" ;
+    rdfs:subClassOf  brick:Entity, foaf:Agent ;
+    skos:definition "Building occupant, which can be an indiviudal occupant or a group of occupants sharing some common attributes" .
+
+occ:Group   a   owl:Class, sh:NodeShape ;
+    sh:property [
+        sh:path occ:label ;
+        sh:minCount 1 ;
+    ] ;
+    rdfs:subClassOf foaf:Group, occ:Occupant ;
+    skos:definition "One or more building occupants or groups" ;
+.
+
+occ:Individual   a   owl:Class, sh:NodeShape ;
+    sh:property [
+        sh:path occ:label ;
+        sh:minCount 1 ;
+    ] ;
+    rdfs:subClassOf foaf:Person, occ:Occupant ;
+    skos:definition "A single building occupant" ;
+.
+
+occ:groupSize    a   owl:DatatypeProperty ;
+    rdfs:range  xsd:positiveInteger ;
+    skos:definition "The number of individuals in a group" ;
+.
+
+occ:hasMember   a   owl:ObjectProperty ;
+    owl:inverseOf occ:isMemberOf ;
+    rdfs:domain occ:Group ;
+    rdfs:range occ:Occupant ;
+.
+
+occ:isMemberOf   a   owl:ObjectProperty ;
+    owl:inverseOf occ:hasMember ;
+    rdfs:domain occ:Occupant ;
+    rdfs:range occ:Group ;
+.
+
+occ:label   rdfs:subPropertyOf  rdfs:label ;
+    skos:definition "The name or identifier or other label for this entity" ;
+    rdfs:domain xsd:string  ;
+.
+
+
+# TODO: need extra properties on "uses"? uses on some schedule, used once, etc
+occ:uses    a   owl:ObjectProperty;
+    sh:class    brick:Equipment ;
+    owl:inverseOf   occ:usedBy ;
+.
+
+occ:usedBy  a   owl:ObjectProperty;
+    sh:class    occ:Occupant ;
+    owl:inverseOf   occ:uses ;
+.
+
+occ:occupies    a   owl:ObjectProperty;
+#     sh:class    occ:
+.
+
+occ:gender  a   owl:ObjectProperty;
+    rdfs:domain occ:Individual ;
+    sh:in   ("Male" "Female" "Transgender" "A gender not listed here" "Decline to state") ;
+    # second question from https://gender.stanford.edu/news-publications/gender-news/more-inclusive-gender-questions-added-general-social-survey
+.
+
+occ:ethnicity  a   owl:ObjectProperty;
+    rdfs:domain occ:Individual ;
+    sh:in   ("American Indian or Alaska Native"
+             "Asian or Asian American"
+             "Black or African American"
+             "Hispanic, Latino, Latina, or Latinx"
+             "Middle Eastern or Northern African"
+             "Native Hawaiian or Other Pacific Islander"
+             "White"
+             "An ethnicity not listed here"
+             "Decline to state") ;
+.
+
+
+occ:age a   brick:EntityProperty ;
+    rdfs:domain occ:Individual ;
+    rdfs:range  occ:Age ;
+.
+
+occ:ageRange a   brick:EntityProperty ;
+    rdfs:domain occ:Occupant ;
+    rdfs:range  occ:AgeRange ;
+.
+
+
+occ:Age    a   sh:NodeShape ;
+    skos:definition "Age of the individual" ;
+    sh:property [
+        sh:datatype xsd:positiveInteger ;
+        sh:path brick:value ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:in (unit:YR unit:MO unit:DAY unit:HR unit:MIN) ;
+        sh:path brick:hasUnit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+occ:AgeRange    a   sh:NodeShape ;
+    sh:property [
+        sh:in (unit:YR unit:MO unit:DAY unit:HR unit:MIN) ;
+        sh:path brick:hasUnit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:datatype xsd:float ;
+        sh:path occ:lowerBound ;
+    ] ;
+    sh:property [
+        sh:datatype xsd:float ;
+        sh:path occ:upperBound ;
+    ] ;
+.
+
+# some default age ranges
+occ:18_25   a   occ:AgeRange ;
+    brick:hasUnit   unit:YR ;
+    occ:upperBound  25 ;
+    occ:lowerBound  18 ;
+.
+
+occ:26_34   a   occ:AgeRange ;
+    brick:hasUnit   unit:YR ;
+    occ:upperBound  34 ;
+    occ:lowerBound  26 ;
+.
+
+occ:35_50   a   occ:AgeRange ;
+    brick:hasUnit   unit:YR ;
+    occ:upperBound  35 ;
+    occ:lowerBound  50 ;
+.
+
+occ:51_plus   a   occ:AgeRange ;
+    brick:hasUnit   unit:YR ;
+    occ:lowerBound  51 ;
+.
+
+############## equipment properties
+occ:degreeOfControl    a   brick:EntityProperty ;
+    rdfs:domain     brick:Equipment ;
+    rdfs:range      occ:DegreeOfControlShape ;
+.
+
+occ:DegreeOfControlShape    a   sh:NodeShape ;
+    sh:property [
+        sh:class occ:ModeOfControl ;
+        sh:path brick:value ;
+    ] ;
+.
+
+occ:ModeOfControl a owl:Class ;
+    rdfs:label "ModeOfControl" ;
+    skos:definition "The policy under which the device is controlled" .
+
+occ:ManualMode a occ:ModeOfControl ;
+    skos:definition "Device is controlled manually" .
+
+occ:DynamicMode a occ:ModeOfControl ;
+    skos:definition "Device is controlled by a dynamic process, e.g. via a grid signal" .
+
+occ:AutomaticMode a occ:ModeOfControl ;
+    skos:definition "Device is controlled automatically, according to some schedule" .
+
+occ:occupantAccessibility   a   brick:EntityProperty ;
+    rdfs:domain     brick:Equipment ;
+    rdfs:range      occ:OccupantAccessibilityLevelShape ;
+.
+
+occ:OccupantAccessibilityLevelShape     a   sh:NodeShape ;
+    sh:property [
+        sh:class    occ:OccupantAccessibilityLevel ;
+        sh:path     brick:value ;
+    ] ;
+.
+
+occ:Shared a occ:OccupantAccessibilityLevel ;
+    skos:definition "Device is accessible by multiple occupants" .
+occ:Adjustable a occ:OccupantAccessibilityLevel ;
+    skos:definition "Device is accessible to occupants for adjustment" .
+occ:NotAccessible a occ:OccupantAccessibilityLevel ;
+    skos:definition "Device is inaccessible to occupants" .
+
+##### Optional SHACL-AF Rules
+occ:InferSharedRule a   sh:NodeShape ;
+    sh:targetClass  brick:Equipment ;
+    sh:rule [
+        a   sh:SPARQLRule ;
+        sh:condition [
+            sh:property [
+                sh:minCount 2 ;
+                sh:path occ:usedBy ;
+            ]
+        ] ;
+        sh:prefixes occ:, brick: ;
+        sh:construct """
+        CONSTRUCT {
+            $this   occ:occupantAccessibility [
+                brick:value  occ:Shared 
+            ]
+        } WHERE {}
+        """ ;
+    ] ;
+.
+
+
+occ:InferAccessibleRule a   sh:NodeShape ;
+    sh:targetClass  brick:Equipment ;
+    sh:rule [
+        a   sh:SPARQLRule ;
+        sh:condition [
+            sh:property [
+                sh:minCount 1 ;
+                sh:path occ:usedBy ;
+            ]
+        ] ;
+        sh:prefixes occ:, brick: ;
+        sh:construct """
+        CONSTRUCT {
+            $this   occ:occupantAccessibility [
+                brick:value  occ:Adjustable
+            ]
+        } WHERE {}
+        """ ;
+    ] ;
+.
+
