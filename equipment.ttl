@@ -1,0 +1,67 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sdo: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+############################# Equipment
+
+occ:Ceiling_Fan a owl:Class ;
+    rdfs:label "Ceiling Fan" ;
+    rdfs:subClassOf brick:Fan ;
+    skos:definition "A mechanical fan mounted on the ceiling of a room or space, usually electrically powered, that uses hub-mounted rotating blades to circulate air" .
+
+occ:Personal_Device a owl:Class ;
+    rdfs:label "Personal Device" ;
+    rdfs:subClassOf brick:Equipment ;
+    skos:definition "Dedicated devices used to maintain thermal comfort for occupants" .
+
+occ:Portable_Fan a owl:Class ;
+    rdfs:label "Portable Fan" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A cord-connected appliance that is easily moved by hand from place to place to provide flowing air" .
+
+occ:Portable_Heater a owl:Class ;
+    rdfs:label "Portable Heater" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A cord-connected appliance that is easily moved by hand from place to place to provide heating" .
+
+occ:Desktop_Light a owl:Class ;
+    rdfs:label "Desktop Light" ;
+    rdfs:subClassOf occ:Personal_Device ;
+    skos:definition "A lighting equipment on the desktop to provide illuminance" .
+
+occ:Envelope_Equipment a owl:Class ;
+    rdfs:label "Envelope Equipment" ;
+    rdfs:subClassOf brick:Equipment ;
+    skos:definition "Equipment used in the building envelope" .
+
+occ:Door a owl:Class ;
+    rdfs:label "Door" ;
+    rdfs:subClassOf occ:Envelope_Equipment ;
+    skos:definition "A hinged, sliding, or revolving barrier at the entrance of a building or a zone that allows occupants to go in and out" .
+
+occ:Window a owl:Class ;
+    rdfs:label "Window" ;
+    rdfs:subClassOf occ:Envelope_Equipment ;
+    skos:definition "An opening in the wall of a building to admit light or air and allows occupants to see out" .
+
+
+
+################# Properties
+
+occ:degreeOfControl    a   brick:EntityProperty ;
+    rdfs:domain     brick:Equipment ;
+    rdfs:range      occ:DegreeOfControlShape ;
+.
+
+occ:occupantAccessibility   a   brick:EntityProperty ;
+    rdfs:domain     brick:Equipment ;
+    rdfs:range      occ:OccupantAccessibilityLevelShape ;

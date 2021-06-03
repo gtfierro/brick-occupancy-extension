@@ -1,0 +1,94 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sdo: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+########## Occupant Classes
+
+occ:Occupant a owl:Class ;
+    rdfs:label "Occupant" ;
+    rdfs:subClassOf  brick:Entity, foaf:Agent ;
+    skos:definition "Building occupant, which can be an individual occupant or a group of occupants sharing some common attributes" .
+
+occ:Group   a   owl:Class, sh:NodeShape ;
+    sh:property [
+        sh:path occ:label ;
+        sh:minCount 1 ;
+    ] ;
+    rdfs:subClassOf foaf:Group, occ:Occupant ;
+    skos:definition "One or more building occupants or groups" ;
+.
+
+occ:Individual   a   owl:Class, sh:NodeShape ;
+    sh:property [
+        sh:path occ:label ;
+        sh:minCount 1 ;
+    ] ;
+    rdfs:subClassOf foaf:Person, occ:Occupant ;
+    skos:definition "A single building occupant" ;
+.
+
+################# Properties
+
+occ:groupSize    a   owl:DatatypeProperty ;
+    rdfs:domain occ:Group ;
+    rdfs:range  xsd:positiveInteger ;
+    skos:definition "The number of individuals in a group" ;
+.
+
+occ:hasMember   a   owl:ObjectProperty ;
+    owl:inverseOf occ:isMemberOf ;
+    rdfs:domain occ:Group ;
+    rdfs:range occ:Occupant ;
+.
+
+occ:isMemberOf   a   owl:ObjectProperty ;
+    owl:inverseOf occ:hasMember ;
+    rdfs:domain occ:Occupant ;
+    rdfs:range occ:Group ;
+.
+
+occ:gender  a   owl:ObjectProperty;
+    rdfs:domain occ:Individual ;
+    sh:in   ("Male" "Female" "Transgender" "A gender not listed here" "Decline to state") ;
+    # second question from https://gender.stanford.edu/news-publications/gender-news/more-inclusive-gender-questions-added-general-social-survey
+.
+
+occ:ethnicity  a   owl:ObjectProperty;
+    rdfs:domain occ:Individual ;
+    sh:in   ("American Indian or Alaska Native"
+             "Asian or Asian American"
+             "Black or African American"
+             "Hispanic, Latino, Latina, or Latinx"
+             "Middle Eastern or Northern African"
+             "Native Hawaiian or Other Pacific Islander"
+             "White"
+             "An ethnicity not listed here"
+             "Decline to state") ;
+.
+
+
+occ:age a   brick:EntityProperty ;
+    rdfs:domain occ:Individual ;
+    rdfs:range  occ:Age ;
+.
+
+occ:ageRange a   brick:EntityProperty ;
+    rdfs:domain occ:Occupant ;
+    rdfs:range  occ:AgeRange ;
+.
+
+occ:gender  a   owl:ObjectProperty;
+    rdfs:domain occ:Individual ;
+    sh:in   ("Male" "Female" "Transgender" "A gender not listed here" "Decline to state") ;
+    # second question from https://gender.stanford.edu/news-publications/gender-news/more-inclusive-gender-questions-added-general-social-survey
+.
