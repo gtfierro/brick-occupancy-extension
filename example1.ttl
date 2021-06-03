@@ -1,0 +1,117 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sdo: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix :   <urn:ex#> .
+
+#### Building Structure
+
+:example    a   brick:Building ;
+    brick:hasPart   :floor1 ;
+    occ:label  "Example building" ;
+.
+
+:floor1 a   brick:Floor ;
+    brick:hasPart   :open_office1, :kitchen1, :restroom1, :restroom1 ;
+.
+
+:open_office1   a   brick:Open_Office ;
+    brick:hasPart   :cube1, :cube2, :cube3, :cube4, :conference ;
+    brick:isLocationOf  :ceiling_fan ;
+.
+
+:kitchen1   a   brick:Kitchen ;
+.
+
+:restroom1   a   brick:Restroom ;
+.
+:restroom2   a   brick:Restroom ;
+.
+
+:cube1  a   brick:Cubicle ;
+    brick:isLocationOf  :dlight1, :pfan1 ;
+.
+:cube2  a   brick:Cubicle ;
+    brick:isLocationOf  :dlight2 ;
+.
+:cube3  a   brick:Cubicle ;
+    brick:isLocationOf  :dlight3, :pheater1 ;
+.
+:cube4  a   brick:Cubicle ;
+    brick:isLocationOf  :dlight4 ;
+.
+
+:conference a   brick:Conference_Room ;
+    brick:isLocationOf  :ceiling_fan2 ;
+.
+
+#### Occupant Equipment
+
+:ceiling_fan a occ:Ceiling_Fan ;
+    occ:usedBy :emp1, :emp2 ;
+.
+:ceiling_fan2 a occ:Ceiling_Fan ;
+    occ:occupantAccessibility [
+        brick:value occ:NotAccessible ;
+    ] ;
+.
+
+:dlight1    a   occ:Desktop_Light ;
+    occ:usedBy  :emp1 ;
+.
+:dlight2    a   occ:Desktop_Light ;
+    occ:usedBy  :emp2 ;
+.
+:dlight3    a   occ:Desktop_Light ;
+    occ:usedBy  :qa_team ;
+.
+:dlight4    a   occ:Desktop_Light ;
+    occ:usedBy  :qa_team ;
+.
+:pfan1    a   occ:Portable_Fan ;
+    occ:usedBy  :emp1 ;
+.
+:pheater1    a   occ:Portable_Heater ;
+    occ:usedBy  :qa_team ;
+.
+
+### Human Organization
+
+:company    a   occ:Group ;
+    occ:label "Software Development Corporation" ;
+    brick:hasPart :software_team, :quality_assurance_team ;
+.
+
+:software_team  a   occ:Group ;
+    occ:label "Software development team" ;
+    occ:hasMember   :emp1, :emp2 ;
+.
+
+:qa_team a   occ:Group ;
+    occ:label "Quality assurance team" ;
+    occ:groupSize    4 ;
+    occ:ageRange  occ:18_25 ;
+    occ:occupies    :conference, :cube3, :cube4 ;
+.
+
+:emp1   a   occ:Individual ;
+    occ:occupies    :cube1 ;
+    occ:gender "Female" ;
+    occ:ageRange occ:26_34 ;
+.
+:emp2   a   occ:Individual ;
+    occ:occupies    :cube2 ;
+    occ:gender "Decline to state" ;
+    occ:age [
+        brick:value 43 ;
+        brick:hasUnit unit:YR ;
+    ]
+.

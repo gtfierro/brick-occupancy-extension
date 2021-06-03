@@ -1,0 +1,57 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sdo: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+##### Optional SHACL-AF Rules
+occ:InferSharedRule a   sh:NodeShape ;
+    sh:targetClass  brick:Equipment ;
+    sh:rule [
+        a   sh:SPARQLRule ;
+        sh:condition [
+            sh:property [
+                sh:minCount 2 ;
+                sh:path occ:usedBy ;
+            ]
+        ] ;
+        sh:prefixes occ:, brick: ;
+        sh:construct """
+        CONSTRUCT {
+            $this   occ:occupantAccessibility [
+                brick:value  occ:Shared 
+            ]
+        } WHERE {}
+        """ ;
+    ] ;
+.
+
+
+occ:InferAccessibleRule a   sh:NodeShape ;
+    sh:targetClass  brick:Equipment ;
+    sh:rule [
+        a   sh:SPARQLRule ;
+        sh:condition [
+            sh:property [
+                sh:minCount 1 ;
+                sh:path occ:usedBy ;
+            ]
+        ] ;
+        sh:prefixes occ:, brick: ;
+        sh:construct """
+        CONSTRUCT {
+            $this   occ:occupantAccessibility [
+                brick:value  occ:Adjustable
+            ]
+        } WHERE {}
+        """ ;
+    ] ;
+.
+

@@ -1,0 +1,27 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sdo: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+occ: a owl:Ontology ;
+    rdfs:label "Brick Occupancy Ontology" ;
+    dcterms:creator ( [ a sdo:Person ;
+                sdo:email "gtfierro@cs.berkeley.edu" ;
+                sdo:name "Gabe Fierro" ] ) ;
+    dcterms:license <https://github.com/BrickSchema/brick/blob/master/LICENSE> ;
+    rdfs:seeAlso <https://brickschema.org> .
+
+
+
+occ:label   rdfs:subPropertyOf  rdfs:label ;
+    skos:definition "The name or identifier or other label for this entity" ;
+    rdfs:domain xsd:string  ;
+.

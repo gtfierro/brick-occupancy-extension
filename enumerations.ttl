@@ -1,0 +1,111 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sdo: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+occ:Age    a   sh:NodeShape ;
+    skos:definition "Age of the individual" ;
+    sh:property [
+        sh:datatype xsd:positiveInteger ;
+        sh:path brick:value ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:in (unit:YR unit:MO unit:DAY unit:HR unit:MIN) ;
+        sh:path brick:hasUnit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+
+occ:AgeRange    a   sh:NodeShape ;
+    sh:property [
+        sh:in (unit:YR unit:MO unit:DAY unit:HR unit:MIN) ;
+        sh:path brick:hasUnit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:datatype xsd:float ;
+        sh:path occ:lowerBound ;
+    ] ;
+    sh:property [
+        sh:datatype xsd:float ;
+        sh:path occ:upperBound ;
+    ] ;
+.
+
+# some default age ranges
+occ:18_25   a   occ:AgeRange ;
+    brick:hasUnit   unit:YR ;
+    occ:upperBound  25 ;
+    occ:lowerBound  18 ;
+.
+
+occ:26_34   a   occ:AgeRange ;
+    brick:hasUnit   unit:YR ;
+    occ:upperBound  34 ;
+    occ:lowerBound  26 ;
+.
+
+occ:35_50   a   occ:AgeRange ;
+    brick:hasUnit   unit:YR ;
+    occ:upperBound  35 ;
+    occ:lowerBound  50 ;
+.
+
+occ:51_plus   a   occ:AgeRange ;
+    brick:hasUnit   unit:YR ;
+    occ:lowerBound  51 ;
+.
+
+
+
+occ:DegreeOfControlShape    a   sh:NodeShape ;
+    sh:property [
+        sh:class occ:ModeOfControl ;
+        sh:path brick:value ;
+    ] ;
+.
+
+occ:ModeOfControl a owl:Class ;
+    rdfs:label "ModeOfControl" ;
+    skos:definition "The policy under which the device is controlled" .
+
+occ:ManualMode a occ:ModeOfControl ;
+    skos:definition "Device is controlled manually" .
+
+occ:DynamicMode a occ:ModeOfControl ;
+    skos:definition "Device is controlled by a dynamic process, e.g. via a grid signal" .
+
+occ:AutomaticMode a occ:ModeOfControl ;
+    skos:definition "Device is controlled automatically, according to some schedule" .
+.
+
+
+
+
+occ:OccupantAccessibilityLevelShape     a   sh:NodeShape ;
+    sh:property [
+        sh:class    occ:OccupantAccessibilityLevel ;
+        sh:path     brick:value ;
+    ] ;
+.
+
+occ:Shared a occ:OccupantAccessibilityLevel ;
+    skos:definition "Device is accessible by multiple occupants" .
+occ:Adjustable a occ:OccupantAccessibilityLevel ;
+    skos:definition "Device is accessible to occupants for adjustment" .
+occ:NotAccessible a occ:OccupantAccessibilityLevel ;
+    skos:definition "Device is inaccessible to occupants" .
+
