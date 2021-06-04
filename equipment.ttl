@@ -73,3 +73,4 @@ occ:degreeOfControl    a   brick:EntityProperty ;
 occ:occupantAccessibility   a   brick:EntityProperty ;
     rdfs:domain     brick:Equipment ;
     rdfs:range      occ:OccupantAccessibilityLevelShape ;
+.

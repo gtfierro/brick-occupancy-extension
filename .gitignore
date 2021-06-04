@@ -1,3 +1,7 @@
+# used for doc generation
+*.html
+all.ttl
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

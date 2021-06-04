@@ -90,7 +90,6 @@ occ:DynamicMode a occ:ModeOfControl ;
 
 occ:AutomaticMode a occ:ModeOfControl ;
     skos:definition "Device is controlled automatically, according to some schedule" .
-.
 
 
 
