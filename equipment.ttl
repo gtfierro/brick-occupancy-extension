@@ -53,7 +53,15 @@ occ:Window a owl:Class ;
     rdfs:subClassOf occ:Envelope_Equipment ;
     skos:definition "An opening in the wall of a building to admit light or air and allows occupants to see out" .
 
-
+occ:PlugMeter a owl:Class, sh:NodeShape ;
+    rdfs:label "Plug Meter" ;
+    rdfs:subClassOf  brick:Electrical_Meter ;
+    skos:definition "An electrical meter measuring the consumption of a number of personal devices" ;
+    sh:property [
+        sh:path brick:isFedBy ;
+        sh:class brick:Personal_Device ;
+    ] ;
+.
 
 ################# Properties
 

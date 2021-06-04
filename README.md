@@ -41,11 +41,44 @@ The extension introduces several new classes of equipment:
 - Envelope Equipment:
     - Door
     - Window
+- Plug Meter
 
 The extension supports several kinds of annotations on equipment entities:
 - `occ:degreeOfControl`: manual, dynamic or automatic
 - `occ:occupantAccessibility`: shared, adjustable or not accessible
 - `occ:usedBy <Occupant>`: denotes which occupants, individuals or groups make use of an equipment. If at least 1 occupant uses an equipment, the ontology will infer the `Adjustable` property for the equipment. If at least 2 occupants use an equipment then the ontology will also infer the `Shared` property.
+
+### Plug Meters
+
+Plug meters are a new class of equipment that is a subclass of `brick:Electrical_Meter`. Plug meters have their data sources related to them through `brick:hasPoint`: this is how to model voltage, current, power, energy and other kinds of sensors with a meter. To indicate which piece of equipment is measured by the plug meter use `brick:isFedBy` (the equipment "feeds" electricity to the meter). Plug meters are related to a cubicle, floor, room or other location via `brick:hasLocation`.
+
+```ttl
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix ex: <urn:example#> .
+
+ex:Cubicle123   a   brick:Cubicle ;
+    brick:isLocationOf ex:DeskFan1, ex:Cubicle123PowerMeter .
+
+ex:DeskFan1 a   brick:Portable_Fan ;
+    brick:feeds ex:Cubicle123PowerMeter .
+
+ex:Cubicle123PowerMeter a brick:PlugMeter ;
+    brick:hasPoint  ex:volt_sensor_1, ex:power_sensor_1 .
+
+ex:volt_sensor_1    a   brick:Voltage_Sensor ;
+    brick:hasUnit   unit:V ;
+    brick:timeseries [
+        brick:hasTimeseriesId   "ac3a9e-c4e9-11eb-ae8d-1002b58053c7" ;
+    ] .
+
+ex:power_sensor_1    a   brick:Power_Sensor ;
+    brick:hasUnit   unit:W ;
+    brick:timeseries [
+        brick:hasTimeseriesId   "571811de-c4e9-11eb-ae8d-1002b58053c7" ;
+    ] .
+```
 
 ## Points
 
