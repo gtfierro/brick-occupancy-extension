@@ -91,6 +91,13 @@ Specifically, the `occ:OccupantActionStream` instance has the following metadata
 
 The *values* of the data stream are the **resulting state of the equipment after the occupant took an action**.
 
+### Needs Additional Discussion
+
+Is there a better/standard way of describing the data stored in a tabular form?
+
+- https://link.springer.com/content/pdf/10.1007/s10115-020-01468-x.pdf
+- https://www.w3.org/TR/r2rml/
+- https://github.com/w3c/csvw/
 
 ### Example
 
