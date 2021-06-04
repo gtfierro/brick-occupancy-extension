@@ -49,7 +49,7 @@ The extension supports several kinds of annotations on equipment entities:
 
 ## Points
 
-The extension introduces a new kind of Point class which models streams of occupant actions. An instance of a `occ:OccupantActionStream` represents the sequence of actions taken by an occupant (which may be an individual or a group) on an equipment.
+The extension introduces a new kind of Point class which models streams of occupant actions. An instance of a `occ:OccupantActionStream` represents the sequence of actions taken by an occupant (which may be an individual or a group) on an equipment. This is different than a Point containing data of the equipment status such as a `brick:Status` or `brick:Command`. An `occ:OccupantActionStream` contains the results of occupant actions; a `brick:Status`/`brick:Command` contain the current read-only state of equipment  and read-write state of equipment, respectively.
 
 Specifically, the `occ:OccupantActionStream` instance has the following metadata:
 - the `occ:Occupant` instance taking the action (related with the `brick:isPointOf` relationship)
