@@ -25,3 +25,17 @@ occ:label   rdfs:subPropertyOf  rdfs:label ;
     skos:definition "The name or identifier or other label for this entity" ;
     rdfs:domain xsd:string  ;
 .
+
+occ:hasAssignedLocation a   owl:ObjectProperty ;
+    owl:inverseOf   occ:isAssignedLocationOf ;
+    rdfs:subPropertyOf  brick:hasLocation ;
+    rdfs:domain occ:Occupant ;
+    skos:definition "Occupant is assigned to, or otherwise habitually or nominally occupies the indicated Location" ;
+.
+    
+occ:isAssignedLocationOf    a   owl:ObjectProperty ;
+    owl:inverseOf   occ:isAssignedLocationOf ;
+    rdfs:subPropertyOf  brick:isLocationOf ;
+    rdfs:domain brick:Location ;
+    skos:definition "Location is assigned to, or otherwise habitually or nominally occupied by the indicated Occupant" ;
+.

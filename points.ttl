@@ -1,5 +1,6 @@
 @prefix brick: <https://brickschema.org/schema/Brick#> .
 @prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
+@prefix dash: <http://datashapes.org/dash#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -9,13 +10,58 @@
 @prefix sdo: <http://schema.org/> .
 @prefix dcterms: <http://purl.org/dc/terms#> .
 @prefix unit: <http://qudt.org/vocab/unit/> .
-@prefix xtsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# needs DASH shapes: http://datashapes.org/dash#
 
 # TODO: name? what are the values of these points?
-occ:OccupantActionStream  a   owl:Class ;
-    skos:definition "A data source of occupant actions";
+occ:OccupantActionStream  a   owl:Class, sh:NodeShape ;
+    sh:property [
+        rdfs:comment "Actions are associated with at least 1 occupant" ;
+        sh:path brick:isPointOf ;
+        sh:minCount 1;
+        dash:hasValueWithClass occ:Occupant ;
+    ] ;
+    sh:property [
+        rdfs:comment "Actions are associated with at least 1 equipment" ;
+        sh:path brick:isPointOf ;
+        sh:minCount 1;
+        dash:hasValueWithClass brick:Equipment ;
+    ] ;
+    skos:definition "A data source of occupant actions; an instance is related to an occupant *and* an equipment. The timeseries contains the actions";
     rdfs:subClassOf brick:Command ;
+    # TODO: "hasEnumeratedValues" for what is in the timeseries stream itself?
 .
 
+# TODO: enumerations of occupant actions
 
-# TODO: what occupant actions do we need?
+occ:csvReference  a   owl:AsymmetricProperty, owl:IrreflexiveProperty, owl:ObjectProperty ;
+    rdfs:domain     brick:Point ;
+    rdfs:range      occ:CSVReferenceShape ;
+    skos:definition "Relates a Brick point to the column and filename of the CSV file containing the data" ;
+.
+
+occ:columnName  a   owl:DatatypeProperty ;
+    rdfs:domain occ:CSVReferenceShape ;
+    rdfs:range  xsd:string ;
+.
+
+occ:fileName  a   owl:DatatypeProperty ;
+    rdfs:domain occ:CSVReferenceShape ;
+    rdfs:range  xsd:string ;
+.
+
+occ:CSVReferenceShape a sh:NodeShape ;
+    sh:property [
+        sh:datatype xsd:string ;
+        sh:path     occ:columnName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:datatype xsd:string ;
+        sh:path     occ:fileName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+.

@@ -46,3 +46,12 @@ The extension supports several kinds of annotations on equipment entities:
 - `occ:degreeOfControl`: manual, dynamic or automatic
 - `occ:occupantAccessibility`: shared, adjustable or not accessible
 - `occ:usedBy <Occupant>`: denotes which occupants, individuals or groups make use of an equipment. If at least 1 occupant uses an equipment, the ontology will infer the `Adjustable` property for the equipment. If at least 2 occupants use an equipment then the ontology will also infer the `Shared` property.
+
+## Points
+
+The extension introduces a new kind of Point class which models streams of occupant actions. An instance of a `occ:OccupantActionStream` represents the sequence of actions taken by an occupant (which may be an individual or a group) on an equipment.
+
+Specifically, the `occ:OccupantActionStream` instance has the following metadata:
+- the `occ:Occupant` instance taking the action (related with the `brick:isPointOf` relationship)
+- the `brick:Equipment` instance that is the object of the action (related with the `brick:isPointOf` relationship)
+
