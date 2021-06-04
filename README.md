@@ -54,4 +54,57 @@ The extension introduces a new kind of Point class which models streams of occup
 Specifically, the `occ:OccupantActionStream` instance has the following metadata:
 - the `occ:Occupant` instance taking the action (related with the `brick:isPointOf` relationship)
 - the `brick:Equipment` instance that is the object of the action (related with the `brick:isPointOf` relationship)
+- a `occ:csvReference` property denoting the name of a CSV file containing the data and which column contains the data for this point. Alternative to `occ:csvReference` is [`brick:timeseries`](https://docs.brickschema.org/metadata/timeseries-storage.html) which relates a Point instance's data to the contents of a database
 
+The *values* of the data stream are the **resulting state of the equipment after the occupant took an action**.
+
+
+### Example
+
+For example, consider a file `Occupant1DeskFanActions.csv` which contains the following data:
+
+```
+timestamp,action
+2021-04-01T08:00:00Z,on
+2021-04-01T09:00:00Z,off
+2021-04-01T09:10:00Z,on
+```
+
+then this would possibly be modeled in a `.ttl` file as:
+
+```ttl
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
+@prefix ex: <urn:example#> .
+
+ex:Building a   brick:Building ;
+    brick:hasPart   ex:Floor1 ;
+.
+
+ex:Floor1   a   brick:Floor ;
+    brick:hasPart   ex:Office1 ;
+.
+
+ex:Office1  a   brick:Office ;
+    occ:isAssignedLocationOf ex:Occupant1 ;
+    brick:isLocationOf  ex:DeskFan1 ;
+.
+
+ex:DeskFan1 a occ:Portable_Fan ;
+    occ:usedBy  ex:Occupant1 ;
+.
+
+ex:Occupant1    a   occ:Individual ;
+    occ:label "Occupant 1" ;
+    occ:hasAssignedLocation ex:Office1 ;
+.
+
+ex:Occupant1FanActions  a   occ:OccupantActionStream ;
+    brick:isPointOf ex:Occupant1, ex:DeskFan1 ;
+    occ:csvReference [
+        occ:fileName "Occupant1DeskFanActions.csv" ;
+        occ:dataColumnName "action" ;
+        occ:timeColumnName "timestamp" ;
+    ] ;
+
+```

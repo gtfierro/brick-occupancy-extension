@@ -41,7 +41,14 @@ occ:csvReference  a   owl:AsymmetricProperty, owl:IrreflexiveProperty, owl:Objec
     skos:definition "Relates a Brick point to the column and filename of the CSV file containing the data" ;
 .
 
-occ:columnName  a   owl:DatatypeProperty ;
+occ:dataColumnName  a   owl:DatatypeProperty ;
+    skos:definition "Name of the column containing data" ;
+    rdfs:domain occ:CSVReferenceShape ;
+    rdfs:range  xsd:string ;
+.
+
+occ:timeColumnName  a   owl:DatatypeProperty ;
+    skos:definition "Name of the column containing timestamps" ;
     rdfs:domain occ:CSVReferenceShape ;
     rdfs:range  xsd:string ;
 .
@@ -54,7 +61,13 @@ occ:fileName  a   owl:DatatypeProperty ;
 occ:CSVReferenceShape a sh:NodeShape ;
     sh:property [
         sh:datatype xsd:string ;
-        sh:path     occ:columnName ;
+        sh:path     occ:dataColumnName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:datatype xsd:string ;
+        sh:path     occ:timeColumnName ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
     ] ;

@@ -39,3 +39,15 @@ occ:isAssignedLocationOf    a   owl:ObjectProperty ;
     rdfs:domain brick:Location ;
     skos:definition "Location is assigned to, or otherwise habitually or nominally occupied by the indicated Occupant" ;
 .
+
+
+occ:uses    a   owl:ObjectProperty ;
+    sh:class    brick:Equipment ;
+    owl:inverseOf   occ:usedBy ;
+.
+
+occ:usedBy  a   owl:ObjectProperty ;
+    sh:class    occ:Occupant ;
+    owl:inverseOf   occ:uses ;
+.
+
