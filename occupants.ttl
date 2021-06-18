@@ -78,7 +78,7 @@ occ:ethnicity  a   owl:ObjectProperty;
 
 
 occ:age a   brick:EntityProperty ;
-    rdfs:domain occ:Individual ;
+    rdfs:domain occ:Occupant ;
     rdfs:range  occ:Age ;
 .
 
@@ -88,7 +88,7 @@ occ:ageRange a   brick:EntityProperty ;
 .
 
 occ:gender  a   owl:ObjectProperty;
-    rdfs:domain occ:Individual ;
+    rdfs:domain occ:Occupant ;
     sh:in   ("Male" "Female" "Transgender" "A gender not listed here" "Decline to state") ;
     # second question from https://gender.stanford.edu/news-publications/gender-news/more-inclusive-gender-questions-added-general-social-survey
 .
