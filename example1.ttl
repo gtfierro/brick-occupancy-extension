@@ -56,7 +56,7 @@
 #### Occupant Equipment
 
 :ceiling_fan a occ:Ceiling_Fan ;
-    occ:usedBy :emp1, :emp2 ;
+    occ:isAccessibleBy :emp1, :emp2 ;
 .
 :ceiling_fan2 a occ:Ceiling_Fan ;
     occ:occupantAccessibility [
@@ -65,22 +65,22 @@
 .
 
 :dlight1    a   occ:Desktop_Light ;
-    occ:usedBy  :emp1 ;
+    occ:isAccessibleBy  :emp1 ;
 .
 :dlight2    a   occ:Desktop_Light ;
-    occ:usedBy  :emp2 ;
+    occ:isAccessibleBy  :emp2 ;
 .
 :dlight3    a   occ:Desktop_Light ;
-    occ:usedBy  :qa_team ;
+    occ:isAccessibleBy  :qa_team ;
 .
 :dlight4    a   occ:Desktop_Light ;
-    occ:usedBy  :qa_team ;
+    occ:isAccessibleBy  :qa_team ;
 .
 :pfan1    a   occ:Portable_Fan ;
-    occ:usedBy  :emp1 ;
+    occ:isAccessibleBy  :emp1 ;
 .
 :pheater1    a   occ:Portable_Heater ;
-    occ:usedBy  :qa_team ;
+    occ:isAccessibleBy  :qa_team ;
 .
 
 ### Human Organization

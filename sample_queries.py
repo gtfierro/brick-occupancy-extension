@@ -15,6 +15,6 @@ res = g.query("SELECT ?shared_equip WHERE { ?shared_equip occ:occupantAccessibil
 print(list(res))
 
 # get all equipment used by employees in the 26-34 age range
-res = g.query("SELECT ?equip ?occ WHERE { ?equip occ:usedBy ?occ . ?occ occ:ageRange  occ:26_34 }")
+res = g.query("SELECT ?equip ?occ WHERE { ?equip occ:isAccessibleBy ?occ . ?occ occ:ageRange  occ:26_34 }")
 for row in res:
     print(row)

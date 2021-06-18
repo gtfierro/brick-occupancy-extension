@@ -16,7 +16,7 @@
 occ:Ceiling_Fan a owl:Class ;
     rdfs:label "Ceiling Fan" ;
     rdfs:subClassOf brick:Fan ;
-    skos:definition "A mechanical fan mounted on the ceiling of a room or space, usually electrically powered, that uses hub-mounted rotating blades to circulate air" .
+    skos:definition "A mechanical fan mounted on the ceiling of a room or space, usually electrically powered, that hasAccessTo hub-mounted rotating blades to circulate air" .
 
 occ:Personal_Device a owl:Class ;
     rdfs:label "Personal Device" ;

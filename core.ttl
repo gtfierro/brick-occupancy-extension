@@ -41,13 +41,13 @@ occ:isAssignedLocationOf    a   owl:ObjectProperty ;
 .
 
 
-occ:uses    a   owl:ObjectProperty ;
+occ:hasAccessTo    a   owl:ObjectProperty ;
     sh:class    brick:Equipment ;
-    owl:inverseOf   occ:usedBy ;
+    owl:inverseOf   occ:isAccessibleBy ;
 .
 
-occ:usedBy  a   owl:ObjectProperty ;
+occ:isAccessibleBy  a   owl:ObjectProperty ;
     sh:class    occ:Occupant ;
-    owl:inverseOf   occ:uses ;
+    owl:inverseOf   occ:hasAccessTo ;
 .
 
