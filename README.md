@@ -1,5 +1,7 @@
 # Occupancy Modeling Extension
 
+![Overview](overview.png)
+
 Docs available [here](https://occupancy-extension-beta.gtf.fyi/)
 
 Look at the `.ttl` files for the ontology extension definition. Look at `example1.ttl` for usage. Look at `sample_queries.py` for what it says on the tin.
