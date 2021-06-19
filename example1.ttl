@@ -57,10 +57,22 @@
 
 :ceiling_fan a occ:Ceiling_Fan ;
     occ:isAccessibleBy :emp1, :emp2 ;
+    occ:modeOfControl [
+        brick:value occ:ManualMode ;
+    ] ;
+    occ:degreeOfControl [
+        brick:value occ:StagedControl ;
+    ] ;
 .
 :ceiling_fan2 a occ:Ceiling_Fan ;
     occ:occupantAccessibility [
         brick:value occ:NotAccessible ;
+    ] ;
+    occ:modeOfControl [
+        brick:value occ:AutomaticMode ;
+    ] ;
+    occ:degreeOfControl [
+        brick:value occ:NoControl ;
     ] ;
 .
 
@@ -100,18 +112,29 @@
     occ:groupSize    4 ;
     occ:ageRange  occ:18_25 ;
     occ:occupies    :conference, :cube3, :cube4 ;
+    occ:clothingInsulation [
+        occ:lowerBound .88 ;
+        occ:upperBound 1.3 ;
+        brick:hasUnit occ:Clo
+    ] ;
 .
 
 :emp1   a   occ:Individual ;
     occ:occupies    :cube1 ;
     occ:gender "Female" ;
     occ:ageRange occ:26_34 ;
+    occ:clothingInsulation [
+        brick:value .92 ;
+        brick:hasUnit occ:Clo
+    ] ;
 .
+
 :emp2   a   occ:Individual ;
     occ:occupies    :cube2 ;
     occ:gender "Decline to state" ;
     occ:age [
         brick:value 43 ;
         brick:hasUnit unit:YR ;
-    ]
+    ] ;
+    occ:clothingInsulation occ:BusinessClothing ;
 .

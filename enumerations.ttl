@@ -13,6 +13,7 @@
 
 occ:Age    a   sh:NodeShape ;
     skos:definition "Age of the individual" ;
+    sh:targetObjectsOf occ:age ;
     sh:property [
         sh:datatype xsd:positiveInteger ;
         sh:path brick:value ;
@@ -29,6 +30,7 @@ occ:Age    a   sh:NodeShape ;
 
 
 occ:AgeRange    a   sh:NodeShape ;
+    sh:targetObjectsOf occ:age ;
     sh:property [
         sh:in (unit:YR unit:MO unit:DAY unit:HR unit:MIN) ;
         sh:path brick:hasUnit ;
@@ -69,9 +71,89 @@ occ:51_plus   a   occ:AgeRange ;
     occ:lowerBound  51 ;
 .
 
+occ:ClothingInsulation    a   sh:NodeShape ;
+    skos:definition "Clothing insulation of the individual" ;
+    sh:targetObjectsOf occ:clothingInsulation ;
+    sh:property [
+        sh:datatype xsd:float ;
+        sh:path brick:value ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:hasValue occ:Clo ;
+        sh:path brick:hasUnit ;
+    ] ;
+.
+
+occ:ClothingInsulationRange    a   sh:NodeShape ;
+    skos:definition "The range or value of the clothing insulation worn by an occupant" ;
+    sh:targetObjectsOf occ:clothingInsulation ;
+    sh:property [
+        sh:hasValue occ:Clo ;
+        sh:path brick:hasUnit ;
+    ] ;
+    sh:property [
+        sh:datatype xsd:float ;
+        sh:path occ:lowerBound ;
+    ] ;
+    sh:property [
+        sh:datatype xsd:float ;
+        sh:path occ:upperBound ;
+    ] ;
+    sh:property [
+        sh:path brick:value ;
+    ] ;
+.
+
+occ:LightClothing   a   occ:ClothingInsulationRange ;
+    brick:hasUnit   occ:Clo ;
+    occ:upperBound  occ:0.3 ;
+    occ:lowerBound  occ:0.0 ;
+.
+
+occ:CasualClothing   a   occ:ClothingInsulationRange ;
+    brick:hasUnit   occ:Clo ;
+    occ:upperBound  occ:1.0 ;
+    occ:lowerBound  occ:0.5 ;
+.
+
+occ:BusinessClothing   a   occ:ClothingInsulationRange ;
+    brick:hasUnit   occ:Clo ;
+    occ:upperBound  occ:1.0 ;
+    occ:lowerBound  occ:0.5 ;
+.
+
+occ:HeavyClothing   a   occ:ClothingInsulationRange ;
+    brick:hasUnit   occ:Clo ;
+    occ:lowerBound  occ:1.0 ;
+.
+
+occ:DegreeOfControlShape a sh:NodeShape ;
+    sh:property [
+        sh:class occ:DegreeOfControl ;
+        sh:path brick:value ;
+    ] ;
+.
+
+occ:DegreeOfControl a owl:Class ;
+    rdfs:label "DegreeOfControl" ;
+    skos:definition "The policy under which the device is controlled" .
+
+occ:OnOffControl a occ:DegreeOfControl ;
+    skos:definition "Device has on/off binary control" .
+
+occ:ContinuousControl a occ:DegreeOfControl ;
+    skos:definition "Device supports a continuous range of control inputs (e.g. 0-100%)" .
+
+occ:StagedControl a occ:DegreeOfControl ;
+    skos:definition "Device has a fixed number (more than 2) of inputs" .
+
+occ:NoControl   a   occ:DegreeOfControl ;
+    skos:definition "Device is fixed or has no control input capabilities" .
 
 
-occ:DegreeOfControlShape    a   sh:NodeShape ;
+occ:ModeOfControlShape    a   sh:NodeShape ;
     sh:property [
         sh:class occ:ModeOfControl ;
         sh:path brick:value ;
@@ -90,8 +172,6 @@ occ:DynamicMode a occ:ModeOfControl ;
 
 occ:AutomaticMode a occ:ModeOfControl ;
     skos:definition "Device is controlled automatically, according to some schedule" .
-
-
 
 
 occ:OccupantAccessibilityLevelShape     a   sh:NodeShape ;

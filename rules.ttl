@@ -26,7 +26,7 @@ occ:InferSharedRule a   sh:NodeShape ;
         sh:construct """
         CONSTRUCT {
             $this   occ:occupantAccessibility [
-                brick:value  occ:Shared 
+                brick:value  occ:Shared
             ]
         } WHERE {}
         """ ;

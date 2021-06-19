@@ -57,12 +57,6 @@ occ:isMemberOf   a   owl:ObjectProperty ;
     rdfs:range occ:Group ;
 .
 
-occ:gender  a   owl:ObjectProperty;
-    rdfs:domain occ:Individual ;
-    sh:in   ("Male" "Female" "Transgender" "A gender not listed here" "Decline to state") ;
-    # second question from https://gender.stanford.edu/news-publications/gender-news/more-inclusive-gender-questions-added-general-social-survey
-.
-
 occ:ethnicity  a   owl:ObjectProperty;
     rdfs:domain occ:Individual ;
     sh:in   ("American Indian or Alaska Native"
@@ -79,16 +73,19 @@ occ:ethnicity  a   owl:ObjectProperty;
 
 occ:age a   brick:EntityProperty ;
     rdfs:domain occ:Occupant ;
-    rdfs:range  occ:Age ;
 .
 
-occ:ageRange a   brick:EntityProperty ;
+occ:clothingInsulation a   brick:EntityProperty ;
     rdfs:domain occ:Occupant ;
-    rdfs:range  occ:AgeRange ;
 .
 
 occ:gender  a   owl:ObjectProperty;
     rdfs:domain occ:Occupant ;
     sh:in   ("Male" "Female" "Transgender" "A gender not listed here" "Decline to state") ;
     # second question from https://gender.stanford.edu/news-publications/gender-news/more-inclusive-gender-questions-added-general-social-survey
+.
+
+occ:clothingInsulationRange a   owl:ObjectProperty ;
+    rdfs:range  occ:ClothingInsulationRange ;
+    skos:definition "The range of I_cl clothing insulation values that the occupant is wearing" ;
 .

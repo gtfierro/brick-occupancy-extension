@@ -65,6 +65,11 @@ occ:PlugMeter a owl:Class, sh:NodeShape ;
 
 ################# Properties
 
+occ:modeOfControl    a   brick:EntityProperty ;
+    rdfs:domain     brick:Equipment ;
+    rdfs:range      occ:ModeOfControlShape ;
+.
+
 occ:degreeOfControl    a   brick:EntityProperty ;
     rdfs:domain     brick:Equipment ;
     rdfs:range      occ:DegreeOfControlShape ;

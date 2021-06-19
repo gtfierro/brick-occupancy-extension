@@ -9,6 +9,9 @@
 @prefix sdo: <http://schema.org/> .
 @prefix dcterms: <http://purl.org/dc/terms#> .
 @prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qkdv: <http://qudt.org/vocab/dimensionvector/> .
+@prefix quantitykind: <http://qudt.org/vocab/quantitykind/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 occ: a owl:Ontology ;
@@ -32,7 +35,7 @@ occ:hasAssignedLocation a   owl:ObjectProperty ;
     rdfs:domain occ:Occupant ;
     skos:definition "Occupant is assigned to, or otherwise habitually or nominally occupies the indicated Location" ;
 .
-    
+
 occ:isAssignedLocationOf    a   owl:ObjectProperty ;
     owl:inverseOf   occ:isAssignedLocationOf ;
     rdfs:subPropertyOf  brick:isLocationOf ;
@@ -51,3 +54,14 @@ occ:isAccessibleBy  a   owl:ObjectProperty ;
     owl:inverseOf   occ:hasAccessTo ;
 .
 
+occ:Clo
+  a qudt:Unit ;
+  dcterms:description "A clo (clothing insulation) is a measure of the thermal insulation provided by clothing. 1 clo is defined as the amount of insulation that allows a person at rest to maintain thermal equilibrium in an environment at 21 degrees Celsius in a normally ventilated room (0.1 m/s air movement)."^^qudt:LatexString ;
+  qudt:dbpediaMatch "https://dbpedia.org/page/Thermal_insulation"^^xsd:anyURI ;
+  qudt:hasDimensionVector qkdv:A0E0L0I0M0H0T0D1 ;
+  qudt:hasQuantityKind quantitykind:Dimensionless ;
+  qudt:informativeReference "https://en.wikipedia.org/wiki/Clothing_insulation"^^xsd:anyURI ;
+  qudt:symbol "clo" ;
+  rdfs:isDefinedBy <http://qudt.org/2.1/vocab/unit> ;
+  rdfs:label "clo"@en ;
+.
