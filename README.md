@@ -1,6 +1,6 @@
 # Occupancy Modeling Extension
 
-![Overview](overview.png)
+![Overview](figs/overview.png)
 
 Docs available [here](https://occupancy-extension-beta.gtf.fyi/)
 
@@ -56,6 +56,8 @@ The extension supports several kinds of annotations on equipment entities:
 ### Plug Meters
 
 Plug meters are a new class of equipment that is a subclass of `brick:Electrical_Meter`. Plug meters have their data sources related to them through `brick:hasPoint`: this is how to model voltage, current, power, energy and other kinds of sensors with a meter. To indicate which piece of equipment is measured by the plug meter use `brick:isFedBy` (the equipment "feeds" electricity to the meter). Plug meters are related to a cubicle, floor, room or other location via `brick:hasLocation`.
+
+![Plug Meter Example](figs/plug-meter-example.png)
 
 ```ttl
 @prefix brick: <https://brickschema.org/schema/Brick#> .
