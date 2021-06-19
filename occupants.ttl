@@ -73,9 +73,11 @@ occ:ethnicity  a   owl:ObjectProperty;
 
 occ:age a   brick:EntityProperty ;
     rdfs:domain occ:Occupant ;
+    skos:definition "The age or age range of the occupant" ;
 .
 
 occ:clothingInsulation a   brick:EntityProperty ;
+    skos:definition "The range or value of I_cl clothing insulation values that the occupant is wearing" ;
     rdfs:domain occ:Occupant ;
 .
 
@@ -87,5 +89,4 @@ occ:gender  a   owl:ObjectProperty;
 
 occ:clothingInsulationRange a   owl:ObjectProperty ;
     rdfs:range  occ:ClothingInsulationRange ;
-    skos:definition "The range of I_cl clothing insulation values that the occupant is wearing" ;
 .

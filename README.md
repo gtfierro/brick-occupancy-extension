@@ -10,15 +10,15 @@ The extension introduces some classes for describing properties of the building 
 
 Occupant Properties:
 - `occ:isMemberOf <Group>`: an occupant can be a member of a group. This allows nested groups
-- `occ:uses <Equipment>`: an occupant can use equipment.
-- `occ:ageRange <range>`: an occupant can have an associated age range
+- `occ:hasAccessTo <Equipment>`: an occupant can use equipment.
 - `occ:label <string>`: a human-readable label associated with the occupant
-
-Individual Properties:
-- An individual can have any or all of the properties associated with an Occupant, including...
-- `occ:age <value>`: the exact age of an individual. Can be in years, months, days, etc
+- `occ:age <value>`: the age of an occupant given as a range or exact value. Can be in years, months, days, etc
+- `occ:clothingInsulation <value>`: the clothing insulation level of an occupant, in `clo`
 - `occ:gender <value>`: the surveyed gender of an occupant
 - `occ:ethnicity <value>`: the surveyed ethnicity of an occupant
+
+Individual Properties:
+- An individual can have any or all of the properties associated with an Occupant
 
 Group Properties:
 - A group can have any or all of the properties associated with an occupant, including...
@@ -46,9 +46,10 @@ The extension introduces several new classes of equipment:
 - Plug Meter
 
 The extension supports several kinds of annotations on equipment entities:
-- `occ:degreeOfControl`: manual, dynamic or automatic
+- `occ:modeOfControl`: manual, dynamic or automatic
+- `occ:degreeOfControl`: on/off, continuous, staged, none
 - `occ:occupantAccessibility`: shared, adjustable or not accessible
-- `occ:usedBy <Occupant>`: denotes which occupants, individuals or groups make use of an equipment. If at least 1 occupant uses an equipment, the ontology will infer the `Adjustable` property for the equipment. If at least 2 occupants use an equipment then the ontology will also infer the `Shared` property.
+- `occ:isAccessibleBy <Occupant>`: denotes which occupants, individuals or groups make use of an equipment. If at least 1 occupant has access to an equipment, the ontology will infer the `Adjustable` property for the equipment. If at least 2 occupants have access to an equipment then the ontology will also infer the `Shared` property.
 
 ### Plug Meters
 
@@ -133,7 +134,7 @@ ex:Office1  a   brick:Office ;
 .
 
 ex:DeskFan1 a occ:Portable_Fan ;
-    occ:usedBy  ex:Occupant1 ;
+    occ:isAccessibleBy  ex:Occupant1 ;
 .
 
 ex:Occupant1    a   occ:Individual ;
