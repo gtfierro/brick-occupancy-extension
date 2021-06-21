@@ -17,9 +17,8 @@
 # TODO: name? what are the values of these points?
 occ:OccupantActionStream  a   owl:Class, sh:NodeShape ;
     sh:property [
-        rdfs:comment "Actions are associated with at least 1 occupant" ;
+        rdfs:comment "Actions can be associated with occupants" ;
         sh:path brick:isPointOf ;
-        sh:minCount 1;
         dash:hasValueWithClass occ:Occupant ;
     ] ;
     sh:property [
