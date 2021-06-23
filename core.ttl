@@ -54,6 +54,22 @@ occ:isAccessibleBy  a   owl:ObjectProperty ;
     owl:inverseOf   occ:hasAccessTo ;
 .
 
+occ:country a   owl:DatatypeProperty ;
+    rdfs:domain occ:Occupant ;
+    rdfs:range  xsd:string ;
+    skos:definition "The country the occupant was located in at the time of data collection" ;
+.
+
+occ:city a   owl:DatatypeProperty ;
+    rdfs:range  xsd:string ;
+    skos:definition "The city the entity was located in at the time of data collection" ;
+.
+
+occ:climateZone a   owl:ObjectProperty ;
+    rdfs:range  occ:ASHRAEClimateZone ;
+    skos:definition "The climate zone where the entity was located at the time of data collection" ;
+.
+
 occ:Clo
   a qudt:Unit ;
   dcterms:description "A clo (clothing insulation) is a measure of the thermal insulation provided by clothing. 1 clo is defined as the amount of insulation that allows a person at rest to maintain thermal equilibrium in an environment at 21 degrees Celsius in a normally ventilated room (0.1 m/s air movement)."^^qudt:LatexString ;

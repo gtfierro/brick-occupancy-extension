@@ -88,5 +88,17 @@ occ:gender  a   owl:ObjectProperty;
 .
 
 occ:clothingInsulationRange a   owl:ObjectProperty ;
+    skos:definition "The range or value of insulation of the clothing worn by an occupant, measured in Clo" ;
+    rdfs:domain occ:Occupant ;
     rdfs:range  occ:ClothingInsulationRange ;
+.
+
+occ:clothingDescription a   owl:DatatypeProperty ;
+    skos:definition "A description of the clothing worn by an occupant; should be used to derive a Clo value or range (see occ:clothingInsulationRange)" ;
+    rdfs:domain occ:Occupant ;
+    rdfs:range  xsd:string ;
+.
+
+occ:thermalComfortPreference a owl:ObjectProperty ;
+    rdfs:range  occ:ThermalComfortPreference ;
 .

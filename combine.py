@@ -8,4 +8,9 @@ g.load_file("points.ttl")
 g.load_file("rules.ttl")
 g.load_file("core.ttl")
 
+valid, _, report = g.validate()
+if not valid:
+    print(report)
+    raise Exception("invalid")
+
 g.serialize("all.ttl", format="ttl")

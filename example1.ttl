@@ -111,7 +111,7 @@
     occ:label "Quality assurance team" ;
     occ:groupSize    4 ;
     occ:ageRange  occ:18_25 ;
-    occ:occupies    :conference, :cube3, :cube4 ;
+    occ:hasAssignedLocation    :conference, :cube3, :cube4 ;
     occ:clothingInsulation [
         occ:lowerBound .88 ;
         occ:upperBound 1.3 ;
@@ -120,7 +120,7 @@
 .
 
 :emp1   a   occ:Individual ;
-    occ:occupies    :cube1 ;
+    occ:hasAssignedLocation    :cube1 ;
     occ:gender "Female" ;
     occ:ageRange occ:26_34 ;
     occ:clothingInsulation [
@@ -130,7 +130,7 @@
 .
 
 :emp2   a   occ:Individual ;
-    occ:occupies    :cube2 ;
+    occ:hasAssignedLocation    :cube2 ;
     occ:gender "Decline to state" ;
     occ:age [
         brick:value 43 ;

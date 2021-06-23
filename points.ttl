@@ -12,8 +12,6 @@
 @prefix unit: <http://qudt.org/vocab/unit/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# needs DASH shapes: http://datashapes.org/dash#
-
 # TODO: name? what are the values of these points?
 occ:OccupantActionStream  a   owl:Class, sh:NodeShape ;
     sh:property [
@@ -27,12 +25,86 @@ occ:OccupantActionStream  a   owl:Class, sh:NodeShape ;
         sh:minCount 1;
         dash:hasValueWithClass brick:Equipment ;
     ] ;
-    skos:definition "A data source of occupant actions; an instance is related to an occupant *and* an equipment. The timeseries contains the actions";
+    skos:definition "A data source of occupant actions; an instance is related to an occupant *and* an equipment. The timeseries contains the actions. This ontology does not take any position on the encoding of those actions.";
     rdfs:subClassOf brick:Command ;
     # TODO: "hasEnumeratedValues" for what is in the timeseries stream itself?
 .
 
-# TODO: enumerations of occupant actions
+occ:WindowActionStream  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        rdfs:comment "Action should be associated with a window" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass occ:Window ;
+    ] ;
+.
+
+# TODO: shades, computer, air conditioning
+
+occ:DoorActionStream  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        rdfs:comment "Action should be associated with a door" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass occ:Door ;
+    ] ;
+.
+
+occ:LightingActionStream  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        rdfs:comment "Action should be associated with a lighting equipment" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass brick:Lighting_Equipment ;
+    ] ;
+.
+
+occ:CeilingFanActionStream  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        rdfs:comment "Action should be associated with a ceiling fan" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass occ:Ceiling_Fan ;
+    ] ;
+.
+
+occ:CeilingFanActionStream  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        rdfs:comment "Action should be associated with a ceiling fan" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass occ:Ceiling_Fan ;
+    ] ;
+.
+
+occ:PortableHeaterActionStream  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        rdfs:comment "Action should be associated with a portable heater" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass occ:Portable_Heater ;
+    ] ;
+.
+
+occ:PortableFanActionStream  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        rdfs:comment "Action should be associated with a portable fan" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass occ:Portable_Fan ;
+    ] ;
+.
+
+
+# TODO: issues:
+# - surveyed values: "did you adjust the thermostat in the morning"? associated w/ a time interval
+# - "did you turn off lights" w/n the past 2 years?
+# - Treat survey data separately? For surveyed actions, there is no timestamp
+
+# have "WindowActionStream" as subclass; it should be applied to a window (capture in shacl shape)
+# occupant action streams can infer their type based on the equip they are attached to
+
+# probably want subclasses of equipment actions
 
 occ:csvReference  a   owl:AsymmetricProperty, owl:IrreflexiveProperty, owl:ObjectProperty ;
     rdfs:domain     brick:Point ;
@@ -75,5 +147,41 @@ occ:CSVReferenceShape a sh:NodeShape ;
         sh:path     occ:fileName ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
+    ] ;
+.
+
+occ:Occupancy_Presence_Sensor  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf brick:Occupancy_Sensor ;
+    skos:definition "Boolean value of whether or not there is someone in the space at a point in time" ;
+    sh:property [
+        sh:path brick:isPointOf ;
+        sh:class brick:Location ;
+    ] ;
+.
+
+occ:Occupancy_Count_Sensor  a   owl:Class, sh:NodeShape ;
+    skos:definition "Count of number of occupants in a location at a point in time" ;
+    rdfs:subClassOf brick:Occupancy_Sensor ;
+    sh:property [
+        sh:path brick:isPointOf ;
+        sh:class brick:Location ;
+    ] ;
+.
+
+occ:Occupant_Location_Sensor    a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf brick:Occupancy_Sensor ;
+    skos:definition "Location of an occupant at a point in time" ;
+    sh:property [
+        sh:path brick:isPointOf ;
+        sh:class brick:Occupant ;
+    ] ;
+.
+
+occ:Connected_Device_Count a owl:Class, sh:NodeShape ;
+    rdfs:subClassOf brick:Occupancy_Sensor ;
+    skos:definition "The number of devices connected to a WiFi AP" ;
+    sh:property [
+        sh:path brick:isPointOf ;
+        sh:class brick:Wireless_Access_Point ;
     ] ;
 .

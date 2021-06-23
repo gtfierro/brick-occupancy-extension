@@ -13,6 +13,11 @@
 
 ############################# Equipment
 
+occ:Wireless_Access_Point   a   owl:Class ;
+    rdfs:label "WiFi AP" ;
+    rdfs:subClassOf brick:Equipment ;
+    skos:definition "A wireless access point" .
+
 occ:Ceiling_Fan a owl:Class ;
     rdfs:label "Ceiling Fan" ;
     rdfs:subClassOf brick:Fan ;
@@ -67,15 +72,21 @@ occ:PlugMeter a owl:Class, sh:NodeShape ;
 
 occ:modeOfControl    a   brick:EntityProperty ;
     rdfs:domain     brick:Equipment ;
-    rdfs:range      occ:ModeOfControlShape ;
+    rdfs:range      occ:ModeOfControl ;
 .
 
 occ:degreeOfControl    a   brick:EntityProperty ;
     rdfs:domain     brick:Equipment ;
-    rdfs:range      occ:DegreeOfControlShape ;
+    rdfs:range      occ:DegreeOfControl ;
 .
 
 occ:occupantAccessibility   a   brick:EntityProperty ;
     rdfs:domain     brick:Equipment ;
-    rdfs:range      occ:OccupantAccessibilityLevelShape ;
+    rdfs:range      occ:OccupantAccessibilityLevel ;
 .
+
+occ:operationalStageCount   rdfs:subPropertyOf brick:operationalStageCount ;
+    # TODO: restrict to Staged equipment?
+    rdfs:domain     brick:Equipment ;
+    rdfs:range      brick:StageShape ;
+    skos:definition "The number of operational stages supported by this equipment" .

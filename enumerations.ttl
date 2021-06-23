@@ -101,9 +101,6 @@ occ:ClothingInsulationRange    a   sh:NodeShape ;
         sh:datatype xsd:float ;
         sh:path occ:upperBound ;
     ] ;
-    sh:property [
-        sh:path brick:value ;
-    ] ;
 .
 
 occ:LightClothing   a   occ:ClothingInsulationRange ;
@@ -129,13 +126,6 @@ occ:HeavyClothing   a   occ:ClothingInsulationRange ;
     occ:lowerBound  occ:1.0 ;
 .
 
-occ:DegreeOfControlShape a sh:NodeShape ;
-    sh:property [
-        sh:class occ:DegreeOfControl ;
-        sh:path brick:value ;
-    ] ;
-.
-
 occ:DegreeOfControl a owl:Class ;
     rdfs:label "DegreeOfControl" ;
     skos:definition "The policy under which the device is controlled" .
@@ -153,13 +143,6 @@ occ:NoControl   a   occ:DegreeOfControl ;
     skos:definition "Device is fixed or has no control input capabilities" .
 
 
-occ:ModeOfControlShape    a   sh:NodeShape ;
-    sh:property [
-        sh:class occ:ModeOfControl ;
-        sh:path brick:value ;
-    ] ;
-.
-
 occ:ModeOfControl a owl:Class ;
     rdfs:label "ModeOfControl" ;
     skos:definition "The policy under which the device is controlled" .
@@ -174,17 +157,65 @@ occ:AutomaticMode a occ:ModeOfControl ;
     skos:definition "Device is controlled automatically, according to some schedule" .
 
 
-occ:OccupantAccessibilityLevelShape     a   sh:NodeShape ;
-    sh:property [
-        sh:class    occ:OccupantAccessibilityLevel ;
-        sh:path     brick:value ;
-    ] ;
-.
+occ:OccupantAccessibilityLevel  a   owl:Class ;
+    skos:definition "How accessible a device is to occupants" .
 
 occ:Shared a occ:OccupantAccessibilityLevel ;
     skos:definition "Device is accessible by multiple occupants" .
+
 occ:Adjustable a occ:OccupantAccessibilityLevel ;
     skos:definition "Device is accessible to occupants for adjustment" .
+
 occ:NotAccessible a occ:OccupantAccessibilityLevel ;
     skos:definition "Device is inaccessible to occupants" .
 
+
+occ:ASHRAEClimateZone   a   owl:Class ;
+    skos:definition "A type of climate defined in the ASHRAE 169-2006 standard." .
+
+occ:ClimateZone1 a occ:ASHRAEClimateZone ;
+    skos:definition "Very Hot – Humid(1A) with IP Units 9000 < CDD50ºF and SI Units 5000 < CDD10ºC or Dry(1B) with IP Units 9000 < CDD50ºF and SI Units 5000 < CDD10ºC" ;
+.
+
+occ:ClimateZone2 a occ:ASHRAEClimateZone ;
+    skos:definition "Hot – Humid(2A) with IP Units 6300 < CDD50ºF ≤ 9000 and SI Units 3500 < CDD10ºC ≤ 5000 or Dry(2B) with IP Units 6300 < CDD50ºF ≤ 9000 and SI Units 3500 < CDD10ºC ≤ 5000" ;
+.
+
+occ:ClimateZone3 a occ:ASHRAEClimateZone ;
+    skos:definition "Warm – Humid(3A) with IP Units 4500 < CDD50ºF ≤ 6300 and SI Units 2500 < CDD10ºC < 3500, or Dry(3B) with IP Units 4500 < CDD50ºF ≤ 6300 and SI Units 2500 < CDD10ºC < 3500, or Warm – Marine(3C) with IP Units CDD50ºF ≤ 4500 AND HDD65ºF ≤ 3600 and SI Units CDD10ºC ≤ 2500 AND HDD18ºC ≤ 2000" ;
+.
+
+occ:ClimateZone4 a occ:ASHRAEClimateZone ;
+    skos:definition "Mixed – Humid(4A) with IP Units CDD50ºF ≤ 4500 AND 3600 < HDD65ºF ≤ 5400 and SI Units CDD10ºC ≤ 2500 AND HDD18ºC ≤ 3000 or  Dry(4B) with IP Units CDD50ºF ≤ 4500 AND 3600 < HDD65ºF ≤ 5400 and SI Units CDD10ºC ≤ 2500 AND HDD18ºC ≤ 3000 or  Mixed – Marine(4C) with IP Units 3600 < HDD65ºF ≤ 5400 and SI Units 2000 < HDD18ºC ≤ 3000" ;
+.
+
+occ:ClimateZone5 a occ:ASHRAEClimateZone ;
+    skos:definition "Cool– Humid(5A) with IP Units 5400 < HDD65ºF ≤ 7200 and SI Units 3000 < HDD18ºC ≤ 4000 or  Dry(5B) with IP Units 5400 < HDD65ºF ≤ 7200 and SI Units 3000 < HDD18ºC ≤ 4000 or  Marine(5C) with IP Units 5400 < HDD65ºF ≤ 7200 and SI Units 3000 < HDD18ºC ≤ 4000" ;
+.
+
+occ:ClimateZone6 a occ:ASHRAEClimateZone ;
+    skos:definition " Cold – Humid(6A) with IP Units 7200 < HDD65ºF ≤ 9000 and SI Units 4000 < HDD18ºC ≤ 5000 or  Dry(6B) with IP Units 7200 < HDD65ºF ≤ 9000 and SI Units 4000 < HDD18ºC ≤ 5000" ;
+.
+
+occ:ClimateZone7 a occ:ASHRAEClimateZone ;
+    skos:definition "Very Cold with IP Units 9000 < HDD65ºF ≤ 12600 and SI Units 5000 < HDD18ºC ≤ 7000 ." ;
+.
+
+occ:ClimateZone8 a occ:ASHRAEClimateZone ;
+    skos:definition "Subarctic with IP Units 12600 < HDD65ºF and SI Units 7000 < HDD18ºC ." ;
+.
+
+occ:ThermalComfortPreference a owl:Class ;
+    skos:definition "The occupant's thermal comfort preference with respect to the neutral environmental conditions defined by the ASHRAE Standard 55 comfort envelope." .
+
+occ:WarmerPreference a occ:ThermalComfortPreference ;
+    skos:definition "A preference for environmental conditions that are warmer than neutral" .
+
+occ:CoolerPreference a occ:ThermalComfortPreference ;
+    skos:definition "A preference for environmental conditions that are cooler than neutral" .
+
+occ:NoPreference a occ:ThermalComfortPreference ;
+    skos:definition "No thermal comfort preference" .
+
+occ:NeutralPreference a occ:ThermalComfortPreference ;
+    skos:definition "A preference for neutral environmental conditions" .

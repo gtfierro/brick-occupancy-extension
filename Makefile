@@ -1,7 +1,7 @@
 upload: index.html
 	scp index.html webserver:/opt/occupancy-extension/
 
-all.ttl:
+all.ttl: *.ttl
 	python combine.py
 
 index.html: all.ttl
