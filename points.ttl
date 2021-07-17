@@ -106,49 +106,49 @@ occ:PortableFanActionStream  a   owl:Class, sh:NodeShape ;
 
 # probably want subclasses of equipment actions
 
-occ:csvReference  a   owl:AsymmetricProperty, owl:IrreflexiveProperty, owl:ObjectProperty ;
-    rdfs:domain     brick:Point ;
-    rdfs:range      occ:CSVReferenceShape ;
-    skos:definition "Relates a Brick point to the column and filename of the CSV file containing the data" ;
-.
-
-occ:dataColumnName  a   owl:DatatypeProperty ;
-    skos:definition "Name of the column containing data" ;
-    rdfs:domain occ:CSVReferenceShape ;
-    rdfs:range  xsd:string ;
-.
-
-occ:timeColumnName  a   owl:DatatypeProperty ;
-    skos:definition "Name of the column containing timestamps" ;
-    rdfs:domain occ:CSVReferenceShape ;
-    rdfs:range  xsd:string ;
-.
-
-occ:fileName  a   owl:DatatypeProperty ;
-    rdfs:domain occ:CSVReferenceShape ;
-    rdfs:range  xsd:string ;
-.
-
-occ:CSVReferenceShape a sh:NodeShape ;
-    sh:property [
-        sh:datatype xsd:string ;
-        sh:path     occ:dataColumnName ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-    ] ;
-    sh:property [
-        sh:datatype xsd:string ;
-        sh:path     occ:timeColumnName ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-    ] ;
-    sh:property [
-        sh:datatype xsd:string ;
-        sh:path     occ:fileName ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-    ] ;
-.
+# occ:csvReference  a   owl:AsymmetricProperty, owl:IrreflexiveProperty, owl:ObjectProperty ;
+#     rdfs:domain     brick:Point ;
+#     rdfs:range      occ:CSVReferenceShape ;
+#     skos:definition "Relates a Brick point to the column and filename of the CSV file containing the data" ;
+# .
+# 
+# occ:dataColumnName  a   owl:DatatypeProperty ;
+#     skos:definition "Name of the column containing data" ;
+#     rdfs:domain occ:CSVReferenceShape ;
+#     rdfs:range  xsd:string ;
+# .
+# 
+# occ:timeColumnName  a   owl:DatatypeProperty ;
+#     skos:definition "Name of the column containing timestamps" ;
+#     rdfs:domain occ:CSVReferenceShape ;
+#     rdfs:range  xsd:string ;
+# .
+# 
+# occ:fileName  a   owl:DatatypeProperty ;
+#     rdfs:domain occ:CSVReferenceShape ;
+#     rdfs:range  xsd:string ;
+# .
+# 
+# occ:CSVReferenceShape a sh:NodeShape ;
+#     sh:property [
+#         sh:datatype xsd:string ;
+#         sh:path     occ:dataColumnName ;
+#         sh:minCount 1 ;
+#         sh:maxCount 1 ;
+#     ] ;
+#     sh:property [
+#         sh:datatype xsd:string ;
+#         sh:path     occ:timeColumnName ;
+#         sh:minCount 1 ;
+#         sh:maxCount 1 ;
+#     ] ;
+#     sh:property [
+#         sh:datatype xsd:string ;
+#         sh:path     occ:fileName ;
+#         sh:minCount 1 ;
+#         sh:maxCount 1 ;
+#     ] ;
+# .
 
 occ:Occupancy_Presence_Sensor  a   owl:Class, sh:NodeShape ;
     rdfs:subClassOf brick:Occupancy_Sensor ;

@@ -94,6 +94,9 @@ The extension introduces a new kind of Point class which models streams of occup
 Specifically, the `occ:OccupantActionStream` instance has the following metadata:
 - the `occ:Occupant` instance taking the action (related with the `brick:isPointOf` relationship)
 - the `brick:Equipment` instance that is the object of the action (related with the `brick:isPointOf` relationship)
+
+### Non-normative: CSV References
+- 
 - a `occ:csvReference` property denoting the name of a CSV file containing the data and which column contains the data for this point. Alternative to `occ:csvReference` is [`brick:timeseries`](https://docs.brickschema.org/metadata/timeseries-storage.html) which relates a Point instance's data to the contents of a database
 
 The *values* of the data stream are the **resulting state of the equipment after the occupant took an action**.
@@ -155,3 +158,4 @@ ex:Occupant1FanActions  a   occ:OccupantActionStream ;
     ] ;
 
 ```
+
