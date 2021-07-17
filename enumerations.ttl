@@ -48,6 +48,12 @@ occ:AgeRange    a   sh:NodeShape ;
 .
 
 # some default age ranges
+occ:children_age_range   a   occ:AgeRange ;
+    brick:hasUnit   unit:YR ;
+    occ:upperBound  11 ;
+    occ:lowerBound  0 ;
+.
+
 occ:18_25   a   occ:AgeRange ;
     brick:hasUnit   unit:YR ;
     occ:upperBound  25 ;
