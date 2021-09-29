@@ -19,6 +19,11 @@ occ:OccupantActionStream  a   owl:Class, sh:NodeShape ;
         sh:path brick:isPointOf ;
         dash:hasValueWithClass occ:Occupant ;
     ] ;
+    sh:property [
+        sh:path occ:surveyed ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+    ] ;
     skos:definition "A data source of occupant actions; an instance is related to an occupant and usually also an equipment. The timeseries contains the actions. This ontology does not take any position on the encoding of those actions.";
     rdfs:subClassOf brick:Point ;
     # TODO: "hasEnumeratedValues" for what is in the timeseries stream itself?

@@ -103,3 +103,6 @@ occ:Met
   rdfs:isDefinedBy <http://qudt.org/2.1/vocab/unit> ;
   rdfs:label "Met"@en ;
 .
+
+occ:Desk a owl:Class ;
+  rdfs:subClassOf brick:Furniture .
