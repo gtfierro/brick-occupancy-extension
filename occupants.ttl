@@ -1,4 +1,5 @@
 @prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix bsh: <https://brickschema.org/schema/BrickShape#> .
 @prefix occ: <https://brickschema.org/schema/Brick/extension/occupancy#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -76,11 +77,6 @@ occ:age a   brick:EntityProperty ;
     skos:definition "The age or age range of the occupant" ;
 .
 
-occ:clothingInsulation a   brick:EntityProperty ;
-    skos:definition "The range or value of I_cl clothing insulation values that the occupant is wearing" ;
-    rdfs:domain occ:Occupant ;
-.
-
 occ:gender  a   owl:ObjectProperty;
     rdfs:domain occ:Occupant ;
     sh:in   ("Male" "Female" "Transgender" "A gender not listed here" "Decline to state") ;
@@ -101,4 +97,52 @@ occ:clothingDescription a   owl:DatatypeProperty ;
 
 occ:thermalComfortPreference a owl:ObjectProperty ;
     rdfs:range  occ:ThermalComfortPreference ;
+.
+
+occ:climateZone a owl:ObjectProperty ;
+    rdfs:range  occ:ASHRAEClimateZone ;
+.
+
+occ:address a owl:ObjectProperty ;
+    rdfs:range occ:AddressShape ;
+.
+
+occ:AddressShape a sh:NodeShape ;
+    sh:targetObjectsOf occ:address ;
+    sh:property [
+        sh:path sdo:addressCountry ;
+        sh:datatype xsd:string ;
+        skos:definition "The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code." ;
+    ] ;
+    sh:property [
+        sh:path sdo:addressLocality ;
+        sh:datatype xsd:string ;
+        skos:definition "The locality in which the street address is, and which is in the region. For example, Mountain View." ;
+    ] ;
+    sh:property [
+        sh:path sdo:addressRegion ;
+        sh:datatype xsd:string ;
+        skos:definition "The region in which the locality is, and which is in the country. For example, California or another appropriate first-level Administrative division" ;
+    ] ;
+.
+
+occ:BMI a brick:EntityProperty ;
+    skos:definition "The body mass index of an individual, defiend as the body mas divided by the square of the body height" ;
+    rdfs:domain occ:Occupant ;
+    rdfs:range occ:BMIShape ;
+.
+
+occ:BMIShape a sh:NodeShape ;
+    sh:targetObjectsOf occ:BMI ;
+    sh:property [
+        sh:datatype bsh:NumericValue
+        sh:path brick:value ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        # TODO: this should be defined in QUDT
+        sh:hasValue unit:KiloG-PER-M2 ;
+        sh:path brick:hasUnit ;
+    ] ;
 .

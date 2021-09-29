@@ -19,15 +19,67 @@ occ:OccupantActionStream  a   owl:Class, sh:NodeShape ;
         sh:path brick:isPointOf ;
         dash:hasValueWithClass occ:Occupant ;
     ] ;
-    sh:property [
-        rdfs:comment "Actions are associated with at least 1 equipment" ;
-        sh:path brick:isPointOf ;
-        sh:minCount 1;
-        dash:hasValueWithClass brick:Equipment ;
-    ] ;
-    skos:definition "A data source of occupant actions; an instance is related to an occupant *and* an equipment. The timeseries contains the actions. This ontology does not take any position on the encoding of those actions.";
-    rdfs:subClassOf brick:Command ;
+    skos:definition "A data source of occupant actions; an instance is related to an occupant and usually also an equipment. The timeseries contains the actions. This ontology does not take any position on the encoding of those actions.";
+    rdfs:subClassOf brick:Point ;
     # TODO: "hasEnumeratedValues" for what is in the timeseries stream itself?
+.
+
+occ:OccupantAttitudeStream  a   owl:Class, sh:NodeShape ;
+    sh:property [
+        rdfs:comment "Attitudes can be associated with occupants" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass occ:Occupant ;
+    ] ;
+    sh:property [
+        sh:path occ:surveyed ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+    ] ;
+    skos:definition "A data source of occupant attitudes";
+    rdfs:subClassOf brick:Point ;
+.
+
+occ:OccupantDrink a owl:Class, sh:NodeShape ;
+    skos:definition "A timeseries of when an occupant takes a drink" ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+.
+
+occ:OccupantClothingChange a owl:Class, sh:NodeShape ;
+    skos:definition "A timeseries of when an occupant changes clothing. Data should store the CLO rating of the clothing donned after the change" ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        sh:path brick:hasUnit ;
+        sh:hasValue occ:Clo ;
+    ] ;
+.
+
+occ:OccupantThermalSensation a owl:Class, sh:NodeShape ;
+    skos:definition "A timeseries of an occupant's thermal sensation." ;
+    rdfs:subClassOf occ:OccupantAttitudeStream ;
+    sh:property [
+        sh:path brick:hasUnit ;
+        sh:hasValue occ:Clo ;
+    ] ;
+.
+
+occ:OccupantActivityLevel a owl:Class, sh:NodeShape ;
+    skos:definition "A timeseries of an occupant's activity level" ;
+    rdfs:subClassOf occ:OccupantAttitudeStream ;
+.
+
+occ:OccupantMetabolicRate a owl:Class, sh:NodeShape ;
+    skos:definition "A timeseries of an occupant's metabolic rate" ;
+    rdfs:subClassOf occ:OccupantAttitudeStream ;
+    sh:property [
+        sh:path brick:hasUnit ;
+        sh:hasValue occ:Met ;
+        sh:in ( occ:Met unit:W-PER-M2 unit:BTU_IT-PER-HR ) ;
+    ] ;
+.
+
+occ:OccupantClothingChange a owl:Class, sh:NodeShape ;
+    skos:definition "A timeseries of when an occupant changes clothing. Data should store the CLO rating of the clothing donned after the change" ;
+    rdfs:subClassOf occ:OccupantActionStream ;
 .
 
 occ:WindowActionStream  a   owl:Class, sh:NodeShape ;
@@ -39,7 +91,33 @@ occ:WindowActionStream  a   owl:Class, sh:NodeShape ;
     ] ;
 .
 
-# TODO: shades, computer, air conditioning
+
+occ:BlindsActionStream  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        rdfs:comment "Action should be associated with a window" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass occ:Window ;
+    ] ;
+.
+
+occ:ComputerActionStream  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        rdfs:comment "Action should be associated with a computer" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass occ:Computer ;
+    ] ;
+.
+
+occ:ThermostatActionStream  a   owl:Class, sh:NodeShape ;
+    rdfs:subClassOf occ:OccupantActionStream ;
+    sh:property [
+        rdfs:comment "Action should be associated with a thermostat" ;
+        sh:path brick:isPointOf ;
+        dash:hasValueWithClass brick:Thermostat ;
+    ] ;
+.
 
 occ:DoorActionStream  a   owl:Class, sh:NodeShape ;
     rdfs:subClassOf occ:OccupantActionStream ;
@@ -105,50 +183,6 @@ occ:PortableFanActionStream  a   owl:Class, sh:NodeShape ;
 # occupant action streams can infer their type based on the equip they are attached to
 
 # probably want subclasses of equipment actions
-
-# occ:csvReference  a   owl:AsymmetricProperty, owl:IrreflexiveProperty, owl:ObjectProperty ;
-#     rdfs:domain     brick:Point ;
-#     rdfs:range      occ:CSVReferenceShape ;
-#     skos:definition "Relates a Brick point to the column and filename of the CSV file containing the data" ;
-# .
-# 
-# occ:dataColumnName  a   owl:DatatypeProperty ;
-#     skos:definition "Name of the column containing data" ;
-#     rdfs:domain occ:CSVReferenceShape ;
-#     rdfs:range  xsd:string ;
-# .
-# 
-# occ:timeColumnName  a   owl:DatatypeProperty ;
-#     skos:definition "Name of the column containing timestamps" ;
-#     rdfs:domain occ:CSVReferenceShape ;
-#     rdfs:range  xsd:string ;
-# .
-# 
-# occ:fileName  a   owl:DatatypeProperty ;
-#     rdfs:domain occ:CSVReferenceShape ;
-#     rdfs:range  xsd:string ;
-# .
-# 
-# occ:CSVReferenceShape a sh:NodeShape ;
-#     sh:property [
-#         sh:datatype xsd:string ;
-#         sh:path     occ:dataColumnName ;
-#         sh:minCount 1 ;
-#         sh:maxCount 1 ;
-#     ] ;
-#     sh:property [
-#         sh:datatype xsd:string ;
-#         sh:path     occ:timeColumnName ;
-#         sh:minCount 1 ;
-#         sh:maxCount 1 ;
-#     ] ;
-#     sh:property [
-#         sh:datatype xsd:string ;
-#         sh:path     occ:fileName ;
-#         sh:minCount 1 ;
-#         sh:maxCount 1 ;
-#     ] ;
-# .
 
 occ:Occupancy_Presence_Sensor  a   owl:Class, sh:NodeShape ;
     rdfs:subClassOf brick:Occupancy_Sensor ;

@@ -81,3 +81,12 @@ occ:Clo
   rdfs:isDefinedBy <http://qudt.org/2.1/vocab/unit> ;
   rdfs:label "clo"@en ;
 .
+
+occ:Met
+  a qudt:Unit ;
+  dcterms:description "Metabolic rate, typically of human body heat or power production. 1 Met is the nominal metablic rate of a relaxed seated person." ; 
+  qudt:dbpediaMatch "https://dbpedia.org/page/Metabolic_equivalent_of_task" ;
+  qudt:symbol "Met" ;
+  rdfs:isDefinedBy <http://qudt.org/2.1/vocab/unit> ;
+  rdfs:label "Met"@en ;
+.

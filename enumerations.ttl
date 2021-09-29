@@ -11,6 +11,8 @@
 @prefix unit: <http://qudt.org/vocab/unit/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+occ:Enumeration a owl:Class .
+
 occ:Age    a   sh:NodeShape ;
     skos:definition "Age of the individual" ;
     sh:targetObjectsOf occ:age ;

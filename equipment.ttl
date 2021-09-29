@@ -18,6 +18,11 @@ occ:Wireless_Access_Point   a   owl:Class ;
     rdfs:subClassOf brick:Equipment ;
     skos:definition "A wireless access point" .
 
+occ:Computer   a   owl:Class ;
+    rdfs:label "Computer" ;
+    rdfs:subClassOf brick:Equipment ;
+    skos:definition "A general purpose computer" .
+
 occ:Ceiling_Fan a owl:Class ;
     rdfs:label "Ceiling Fan" ;
     rdfs:subClassOf brick:Fan ;
