@@ -54,21 +54,34 @@ occ:isAccessibleBy  a   owl:ObjectProperty ;
     owl:inverseOf   occ:hasAccessTo ;
 .
 
-occ:country a   owl:DatatypeProperty ;
-    rdfs:domain occ:Occupant ;
-    rdfs:range  xsd:string ;
-    skos:definition "The country the occupant was located in at the time of data collection" ;
-.
-
-occ:city a   owl:DatatypeProperty ;
-    rdfs:range  xsd:string ;
-    skos:definition "The city the entity was located in at the time of data collection" ;
-.
-
 occ:climateZone a   owl:ObjectProperty ;
     rdfs:range  occ:ASHRAEClimateZone ;
     skos:definition "The climate zone where the entity was located at the time of data collection" ;
 .
+
+occ:address a owl:ObjectProperty ;
+    rdfs:range occ:AddressShape ;
+.
+
+occ:AddressShape a sh:NodeShape ;
+    sh:targetObjectsOf occ:address ;
+    sh:property [
+        sh:path sdo:addressCountry ;
+        sh:datatype xsd:string ;
+        skos:definition "The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code." ;
+    ] ;
+    sh:property [
+        sh:path sdo:addressLocality ;
+        sh:datatype xsd:string ;
+        skos:definition "The locality in which the street address is, and which is in the region. For example, Mountain View." ;
+    ] ;
+    sh:property [
+        sh:path sdo:addressRegion ;
+        sh:datatype xsd:string ;
+        skos:definition "The region in which the locality is, and which is in the country. For example, California or another appropriate first-level Administrative division" ;
+    ] ;
+.
+
 
 occ:Clo
   a qudt:Unit ;
