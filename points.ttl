@@ -59,12 +59,8 @@ occ:OccupantClothingChange a owl:Class, sh:NodeShape ;
 .
 
 occ:OccupantThermalSensation a owl:Class, sh:NodeShape ;
-    skos:definition "A timeseries of an occupant's thermal sensation." ;
+    skos:definition "A timeseries of an occupant's thermal sensation, defined by ASHRAE Standard 55 seven-point thermal sensation: -3 (cold) to +3 (hot)." ;
     rdfs:subClassOf occ:OccupantAttitudeStream ;
-    sh:property [
-        sh:path brick:hasUnit ;
-        sh:hasValue occ:Clo ;
-    ] ;
 .
 
 occ:OccupantActivityLevel a owl:Class, sh:NodeShape ;
